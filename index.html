@@ -1,0 +1,4943 @@
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="icon" type="image/svg+xml"
+        href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8k4cFQegjLku58cQ1qqb1-DU8cneKpG-8Fg&s">
+    <title>AHMADBEK majmuasi</title>
+
+    <!-- KODNI CTRL+U BILAN KO'RISHNI BLOKLASH -->
+    <script>
+        document.addEventListener('contextmenu', function (e) {
+            e.preventDefault();
+        });
+
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'F12' ||
+                (e.ctrlKey && e.shiftKey && e.key === 'I') ||
+                (e.ctrlKey && e.shiftKey && e.key === 'i') ||
+                (e.ctrlKey && e.shiftKey && e.key === 'J') ||
+                (e.ctrlKey && e.shiftKey && e.key === 'j') ||
+                (e.ctrlKey && e.key === 'U') ||
+                (e.ctrlKey && e.key === 'u') ||
+                (e.ctrlKey && e.key === 's') ||
+                (e.ctrlKey && e.key === 'S')) {
+                e.preventDefault();
+                return false;
+            }
+        });
+
+        console.log('%c🚫 Kodni ko\'rish bloklangan!', 'color: red; font-size: 20px; font-weight: bold;');
+    </script>
+
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Montserrat:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary: #4a90e2;
+            --primary-dark: #3a7bc8;
+            --bg: #0f0b07;
+            --card-bg: #1e1610;
+            --accent: #6ba5e8;
+            --text-light: #ffffff;
+            --text-muted: #e0d6cc;
+            --admin-bg: #1a130c;
+            --success: #4caf50;
+            --danger: #f44336;
+            --warning: #ff9800;
+            --courier: #ff9900;
+            --room-available: #4caf50;
+            --room-booked: #f44336;
+            --fastfood: #ff6b6b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f0b07 0%, #1a130c 100%);
+            color: var(--text-light);
+            overflow-x: hidden;
+            overflow-y: auto;
+            scroll-behavior: smooth;
+            font-family: 'Montserrat', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            position: relative;
+        }
+
+        /* Landscape orientation error message */
+        .landscape-error {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            z-index: 99999;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .landscape-error.show {
+            display: flex;
+        }
+
+        .landscape-error h1 {
+            color: var(--primary);
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        .landscape-error p {
+            color: white;
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+
+        .landscape-error .error-icon {
+            font-size: 80px;
+            color: var(--danger);
+            margin-bottom: 20px;
+        }
+
+        @media (orientation: landscape) and (max-width: 900px) {
+            .landscape-error {
+                display: flex;
+            }
+
+            body {
+                overflow: hidden;
+            }
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-8px) rotate(3deg);
+            }
+        }
+
+        .float-emoji {
+            display: inline-block;
+            animation: float 3s infinite ease-in-out;
+        }
+
+        /* Notification */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            min-width: 300px;
+            max-width: 400px;
+            background: var(--admin-bg);
+            border-left: 5px solid var(--primary);
+            border-radius: 10px;
+            padding: 15px 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transform: translateX(120%);
+            transition: transform 0.3s ease;
+            border: 1px solid rgba(74, 144, 226, 0.3);
+            cursor: pointer;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification.success {
+            border-left-color: var(--success);
+        }
+
+        .notification.danger {
+            border-left-color: var(--danger);
+        }
+
+        .notification-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .notification.success .notification-icon {
+            background: rgba(76, 175, 80, 0.2);
+            color: var(--success);
+        }
+
+        .notification.danger .notification-icon {
+            background: rgba(244, 67, 54, 0.2);
+            color: var(--danger);
+        }
+
+        .notification-content {
+            flex: 1;
+        }
+
+        .notification-title {
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: var(--text-light);
+            font-size: 15px;
+        }
+
+        .notification-message {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .notification-close {
+            color: var(--text-muted);
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .notification-close:hover {
+            color: var(--primary);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+            background: rgba(15, 11, 7, 0.98);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(74, 144, 226, 0.2);
+            flex-wrap: nowrap;
+            gap: 10px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+            cursor: pointer;
+        }
+
+        .logo-container:hover .logo-image {
+            transform: rotate(5deg) scale(1.05);
+        }
+
+        .logo-image {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--primary), #6ba5e8);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: #0f0b07;
+            box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4);
+            transition: 0.3s;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-main {
+            font-size: clamp(16px, 4vw, 24px);
+            font-weight: 900;
+            color: var(--primary);
+            font-family: 'Playfair Display', serif;
+            text-shadow: 0 2px 10px rgba(74, 144, 226, 0.3);
+            line-height: 1.2;
+        }
+
+        .logo-main span {
+            color: var(--text-light);
+            font-weight: 700;
+        }
+
+        .logo-sub {
+            font-size: clamp(7px, 2vw, 10px);
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 300;
+            margin-top: 2px;
+        }
+
+        .nav-right {
+            display: flex;
+            gap: clamp(5px, 2vw, 15px);
+            align-items: center;
+            flex-wrap: nowrap;
+            flex-shrink: 0;
+        }
+
+        .hamburger-menu {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+            padding: 12px;
+            z-index: 1001;
+            background: rgba(74, 144, 226, 0.1);
+            border-radius: 8px;
+            border: 1px solid rgba(74, 144, 226, 0.2);
+            min-width: 44px;
+            min-height: 44px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hamburger-menu span {
+            width: 25px;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger-menu.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .hamburger-menu.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger-menu.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: min(280px, 80vw);
+            height: 100vh;
+            background: var(--admin-bg);
+            z-index: 1002;
+            padding: 80px 15px 20px;
+            transition: right 0.3s ease;
+            border-left: 2px solid var(--primary);
+            box-shadow: -5px 0 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-menu-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1001;
+        }
+
+        .mobile-menu-overlay.active {
+            display: block;
+        }
+
+        .mobile-menu-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 15px;
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 16px;
+            border-radius: 10px;
+            margin-bottom: 8px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(74, 144, 226, 0.2);
+            min-height: 50px;
+            cursor: pointer;
+        }
+
+        .mobile-menu-item:hover {
+            background: rgba(74, 144, 226, 0.1);
+            border-color: var(--primary);
+            transform: translateX(-3px);
+        }
+
+        .mobile-menu-item i {
+            width: 24px;
+            color: var(--primary);
+            font-size: 18px;
+        }
+
+        .profile-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .profile-icon {
+            width: clamp(44px, 8vw, 50px);
+            height: clamp(44px, 8vw, 50px);
+            border-radius: 50%;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: 0.3s;
+            overflow: hidden;
+        }
+
+        .profile-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .profile-icon i {
+            font-size: clamp(20px, 4vw, 24px);
+            color: #0f0b07;
+        }
+
+        .profile-icon:hover {
+            border-color: white;
+            transform: scale(1.05);
+        }
+
+        .profile-dropdown {
+            position: absolute;
+            right: 0;
+            top: 50px;
+            width: min(320px, 90vw);
+            background: var(--admin-bg);
+            border: 1px solid var(--primary);
+            border-radius: 12px;
+            padding: 20px;
+            display: none;
+            z-index: 1001;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .profile-dropdown.active {
+            display: block;
+        }
+
+        .profile-dropdown-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .profile-dropdown-close {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.08);
+            border: none;
+            color: var(--text-muted);
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.2s;
+        }
+
+        .profile-dropdown-close:hover {
+            background: rgba(74, 144, 226, 0.15);
+            color: var(--primary);
+        }
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(74, 144, 226, 0.2);
+        }
+
+        .profile-avatar {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            overflow: hidden;
+            cursor: pointer;
+            border: 2px solid var(--primary);
+        }
+
+        .profile-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .profile-info h4 {
+            color: var(--primary);
+            margin-bottom: 5px;
+            font-size: clamp(16px, 3vw, 18px);
+        }
+
+        .profile-info p {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .profile-field {
+            margin-bottom: 15px;
+        }
+
+        .profile-field label {
+            display: block;
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 5px;
+        }
+
+        .profile-field input {
+            width: 100%;
+            padding: 12px;
+            background: #2c1e14;
+            border: 1px solid rgba(74, 144, 226, 0.2);
+            border-radius: 8px;
+            color: var(--text-light);
+            font-size: 15px;
+        }
+
+        .profile-field input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .profile-field input[readonly] {
+            background: rgba(44, 30, 20, 0.5);
+            color: var(--text-muted);
+            cursor: not-allowed;
+        }
+
+        .save-profile-btn {
+            background: var(--primary);
+            color: #0f0b07;
+            border: none;
+            padding: 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            width: 100%;
+            margin-top: 10px;
+            transition: 0.3s;
+            font-size: 15px;
+        }
+
+        .save-profile-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .logout-btn {
+            background: transparent;
+            color: var(--danger);
+            border: 1px solid var(--danger);
+            padding: 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            width: 100%;
+            margin-top: 10px;
+            transition: 0.3s;
+            font-size: 15px;
+        }
+
+        .logout-btn:hover {
+            background: var(--danger);
+            color: white;
+        }
+
+        .badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .badge-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .badge-danger {
+            background: var(--danger);
+            color: white;
+        }
+
+        .badge-warning {
+            background: var(--warning);
+            color: #0f0b07;
+        }
+
+        .badge-courier {
+            background: var(--courier);
+            color: #0f0b07;
+        }
+
+        .badge-admin {
+            background: linear-gradient(135deg, #4a90e2, #6ba5e8);
+            color: #0f0b07;
+        }
+
+        .search-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .search-input {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(74, 144, 226, 0.2);
+            border-radius: 8px;
+            padding: 12px 40px 12px 15px;
+            color: var(--text-light);
+            font-size: clamp(14px, 3vw, 15px);
+            width: clamp(150px, 30vw, 250px);
+            transition: 0.3s;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.05);
+            width: clamp(180px, 35vw, 300px);
+        }
+
+        .search-input::placeholder {
+            color: var(--text-muted);
+            opacity: 0.7;
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary);
+            cursor: pointer;
+            font-size: clamp(14px, 3vw, 16px);
+        }
+
+        .clear-search {
+            position: absolute;
+            right: 40px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 14px;
+            display: none;
+        }
+
+        .clear-search:hover {
+            color: var(--primary);
+        }
+
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.03);
+            padding: clamp(10px, 2vw, 12px) clamp(15px, 3vw, 22px);
+            border-radius: 8px;
+            font-size: clamp(13px, 3vw, 14px);
+            cursor: pointer;
+            color: var(--text-light);
+            border: 1px solid rgba(74, 144, 226, 0.2);
+            transition: 0.3s;
+            font-weight: 500;
+            text-decoration: none;
+            white-space: nowrap;
+            min-height: 44px;
+        }
+
+        .nav-btn:hover {
+            border-color: var(--primary);
+            background: rgba(74, 144, 226, 0.1);
+            color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .nav-btn select {
+            background: transparent;
+            border: none;
+            color: var(--text-light);
+            font-size: clamp(13px, 3vw, 14px);
+            font-weight: 500;
+            cursor: pointer;
+            outline: none;
+        }
+
+        .nav-btn select option {
+            background: var(--admin-bg);
+            color: var(--text-light);
+        }
+
+        .cart-icon-btn,
+        .rooms-icon-btn,
+        .orders-icon-btn {
+            background: var(--primary);
+            width: clamp(44px, 8vw, 50px);
+            height: clamp(44px, 8vw, 50px);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            position: relative;
+            box-shadow: 0 5px 20px rgba(74, 144, 226, 0.4);
+            transition: 0.3s;
+            font-size: clamp(18px, 4vw, 22px);
+            color: #0f0b07;
+        }
+
+        .cart-icon-btn:hover,
+        .rooms-icon-btn:hover,
+        .orders-icon-btn:hover {
+            transform: scale(1.05);
+            background: var(--primary-dark);
+        }
+
+        .cart-icon-btn span,
+        .rooms-icon-btn span,
+        .orders-icon-btn span {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--danger);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .admin-panel {
+            position: fixed;
+            right: -1000px;
+            top: 0;
+            width: min(1000px, 95vw);
+            height: 100vh;
+            background: var(--admin-bg);
+            z-index: 2000;
+            transition: 0.4s;
+            padding: clamp(15px, 4vw, 30px);
+            box-shadow: -10px 0 50px rgba(0, 0, 0, 0.8);
+            overflow-y: auto;
+            border-left: 2px solid var(--primary);
+        }
+
+        .admin-panel.active {
+            right: 0;
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid rgba(74, 144, 226, 0.3);
+        }
+
+        .admin-title {
+            font-size: clamp(24px, 6vw, 32px);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .admin-close {
+            font-size: clamp(28px, 6vw, 36px);
+            cursor: pointer;
+            color: var(--text-muted);
+            transition: 0.3s;
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .admin-close:hover {
+            color: var(--primary);
+            transform: rotate(90deg);
+        }
+
+        .admin-login-box {
+            text-align: center;
+            padding: clamp(30px, 8vw, 50px);
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 20px;
+            margin-top: 50px;
+        }
+
+        .admin-login-box h2 {
+            color: var(--primary);
+            margin-bottom: 30px;
+            font-size: clamp(20px, 5vw, 28px);
+        }
+
+        .admin-login-box input {
+            width: 100%;
+            max-width: 300px;
+            padding: 15px;
+            background: #2c1e14;
+            border: 1px solid rgba(74, 144, 226, 0.2);
+            border-radius: 12px;
+            color: var(--text-light);
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .admin-login-box input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .admin-login-box button {
+            background: var(--primary);
+            color: #0f0b07;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 12px;
+            font-weight: 800;
+            cursor: pointer;
+            font-size: 16px;
+            min-height: 50px;
+        }
+
+        .admin-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .admin-tab {
+            padding: clamp(12px, 2vw, 15px) clamp(15px, 3vw, 30px);
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(74, 144, 226, 0.2);
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.3s;
+            font-size: clamp(13px, 3vw, 14px);
+            min-height: 44px;
+        }
+
+        .admin-tab:hover,
+        .admin-tab.active {
+            background: var(--primary);
+            color: #0f0b07;
+            border-color: var(--primary);
+        }
+
+        .admin-content {
+            display: none;
+        }
+
+        .admin-content.active {
+            display: block;
+        }
+
+        .admin-section-title {
+            font-size: clamp(20px, 5vw, 24px);
+            margin-bottom: 20px;
+            color: var(--primary);
+            position: relative;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(74, 144, 226, 0.3);
+        }
+
+        .admin-search-container {
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        .admin-search-input {
+            width: 100%;
+            padding: 15px 50px 15px 20px;
+            background: #2c1e14;
+            border: 1px solid rgba(74, 144, 226, 0.2);
+            border-radius: 8px;
+            color: var(--text-light);
+            font-size: 15px;
+            transition: 0.3s;
+        }
+
+        .admin-search-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+        }
+
+        .admin-search-input::placeholder {
+            color: var(--text-muted);
+            opacity: 0.7;
+        }
+
+        .admin-search-icon {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary);
+            font-size: 18px;
+        }
+
+        .admin-clear-search {
+            position: absolute;
+            right: 50px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 16px;
+            display: none;
+        }
+
+        .admin-clear-search:hover {
+            color: var(--primary);
+        }
+
+        .admin-search-stats {
+            text-align: right;
+            margin-top: 5px;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .admin-search-stats span {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .users-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            font-size: clamp(12px, 3vw, 14px);
+        }
+
+        .users-table th {
+            background: rgba(74, 144, 226, 0.1);
+            padding: 12px;
+            text-align: left;
+            color: var(--primary);
+            font-weight: 600;
+            border-bottom: 2px solid var(--primary);
+        }
+
+        .users-table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid rgba(74, 144, 226, 0.1);
+            vertical-align: middle;
+        }
+
+        .users-table tr:hover {
+            background: rgba(74, 144, 226, 0.05);
+        }
+
+        .users-table tr.blocked {
+            background: rgba(244, 67, 54, 0.1);
+            opacity: 0.7;
+        }
+
+        .block-btn {
+            background: var(--danger);
+            color: white;
+            border: none;
+            padding: 5px 8px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 3px;
+            font-size: 11px;
+        }
+
+        .unblock-btn {
+            background: var(--success);
+            color: white;
+            border: none;
+            padding: 5px 8px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 11px;
+        }
+
+        .delete-user-btn {
+            background: #7b0000;
+            color: white;
+            border: none;
+            padding: 5px 8px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 11px;
+            margin-left: 3px;
+        }
+
+        .delete-user-btn:hover {
+            background: #a00000;
+        }
+
+        .make-admin-btn {
+            background: linear-gradient(135deg, #4a90e2, #6ba5e8);
+            color: #0f0b07;
+            border: none;
+            padding: 5px 8px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 11px;
+            margin-left: 3px;
+            font-weight: 700;
+        }
+
+        .remove-admin-btn {
+            background: #555;
+            color: white;
+            border: none;
+            padding: 5px 8px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 11px;
+            margin-left: 3px;
+        }
+
+        .max-order-input {
+            width: 60px;
+            padding: 5px;
+            background: #2c1e14;
+            border: 1px solid rgba(74, 144, 226, 0.2);
+            border-radius: 5px;
+            color: white;
+            text-align: center;
+        }
+
+        .update-max-btn {
+            background: var(--primary);
+            color: #0f0b07;
+            border: none;
+            padding: 5px 8px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 3px;
+            font-size: 11px;
+        }
+
+        .orders-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            font-size: clamp(11px, 3vw, 14px);
+        }
+
+        .orders-table th {
+            background: rgba(74, 144, 226, 0.1);
+            padding: 12px;
+            text-align: left;
+            color: var(--primary);
+            font-weight: 600;
+            border-bottom: 2px solid var(--primary);
+        }
+
+        .orders-table td {
+            padding: 12px;
+            border-bottom: 1px solid rgba(74, 144, 226, 0.1);
+        }
+
+        .orders-table tr:hover {
+            background: rgba(74, 144, 226, 0.05);
+        }
+
+        .order-items {
+            max-width: 250px;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .delete-order-btn {
+            background: var(--danger);
+            color: white;
+            border: none;
+            padding: 5px 8px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 11px;
+            transition: 0.2s;
+        }
+
+        .delete-order-btn:hover {
+            background: #d32f2f;
+            transform: scale(1.05);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .product-edit-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(74, 144, 226, 0.2);
+            border-radius: 12px;
+            padding: 15px;
+            transition: 0.3s;
+        }
+
+        .product-edit-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 10px 30px rgba(74, 144, 226, 0.15);
+        }
+
+        .product-edit-card img {
+            width: 100%;
+            height: 140px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: 0.3s;
+        }
+
+        .product-edit-card img:hover {
+            border-color: var(--primary);
+        }
+
+        .product-edit-card input,
+        .product-edit-card select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 8px;
+            background: #2c1e14;
+            border: 1px solid rgba(74, 144, 226, 0.2);
+            border-radius: 6px;
+            color: var(--text-light);
+            font-size: clamp(12px, 3vw, 13px);
+        }
+
+        .product-edit-card input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .product-weight-badge {
+            display: inline-block;
+            background: rgba(74, 144, 226, 0.1);
+            color: var(--primary);
+            padding: 4px 8px;
+            border-radius: 20px;
+            font-size: 12px;
+            margin-bottom: 8px;
+        }
+
+        .product-category-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-muted);
+            padding: 4px 8px;
+            border-radius: 20px;
+            font-size: 11px;
+            margin-left: 5px;
+        }
+
+        .save-btn {
+            background: var(--primary);
+            color: #0f0b07;
+            border: none;
+            padding: 8px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            width: 100%;
+            transition: 0.3s;
+            font-size: clamp(12px, 3vw, 13px);
+        }
+
+        .save-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        .delete-btn {
+            background: var(--danger);
+            color: white;
+            border: none;
+            padding: 8px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            width: 100%;
+            margin-top: 8px;
+            font-size: clamp(12px, 3vw, 13px);
+        }
+
+        .add-user-form {
+            background: rgba(74, 144, 226, 0.05);
+            border: 1px solid rgba(74, 144, 226, 0.2);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 25px;
+        }
+
+        .add-user-form h4 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: clamp(14px, 4vw, 16px);
+        }
+
+        .add-user-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .add-user-grid input {
+            padding: 10px;
+            background: #2c1e14;
+            border: 1px solid rgba(74, 144, 226, 0.2);
+            border-radius: 6px;
+            color: var(--text-light);
+            font-size: clamp(12px, 3vw, 13px);
+        }
+
+        .add-user-grid input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .add-user-btn {
+            background: var(--primary);
+            color: #0f0b07;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: clamp(12px, 4vw, 14px);
+            transition: 0.2s;
+        }
+
+        .add-user-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        .hero {
+            display: flex;
+            align-items: center;
+            padding: clamp(30px, 8vw, 60px) 5%;
+            min-height: 80vh;
+            gap: clamp(20px, 5vw, 50px);
+            flex-wrap: wrap;
+        }
+
+        .hero-left {
+            flex: 1.2;
+            min-width: min(400px, 100%);
+        }
+
+        .top-badge {
+            background: rgba(74, 144, 226, 0.1);
+            padding: clamp(8px, 2vw, 10px) clamp(15px, 4vw, 22px);
+            border-radius: 40px;
+            font-size: clamp(13px, 3vw, 14px);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(74, 144, 226, 0.3);
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .hero-left h1 {
+            font-size: clamp(32px, 8vw, 72px);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            font-family: 'Playfair Display', serif;
+            background: linear-gradient(135deg, #ffffff 0%, #4a90e2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-left h1 span {
+            color: var(--primary);
+            -webkit-text-fill-color: var(--primary);
+            border-bottom: 3px solid var(--primary);
+            padding-bottom: 5px;
+        }
+
+        .hero-left p {
+            color: var(--text-muted);
+            font-size: clamp(14px, 3.5vw, 18px);
+            margin-bottom: 30px;
+            line-height: 1.8;
+            max-width: 550px;
+            font-weight: 400;
+        }
+
+        .cta-btn {
+            background: linear-gradient(135deg, var(--primary), #6ba5e8);
+            color: #0f0b07;
+            padding: clamp(14px, 3vw, 18px) clamp(25px, 6vw, 45px);
+            border-radius: 10px;
+            font-weight: 800;
+            font-size: clamp(14px, 3.5vw, 16px);
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(74, 144, 226, 0.3);
+            transition: 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            min-height: 50px;
+        }
+
+        .cta-btn:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(74, 144, 226, 0.4);
+        }
+
+        .cta-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .stats-box {
+            display: flex;
+            gap: clamp(20px, 6vw, 60px);
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item h2 {
+            font-size: clamp(28px, 7vw, 44px);
+            font-weight: 900;
+            color: var(--primary);
+            font-family: 'Playfair Display', serif;
+            text-shadow: 0 2px 10px rgba(74, 144, 226, 0.2);
+        }
+
+        .stat-item p {
+            font-size: clamp(13px, 3vw, 15px);
+            color: var(--text-muted);
+            margin-top: 5px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .hero-right {
+            flex: 1;
+            display: flex;
+            justify-content: flex-end;
+            min-width: min(300px, 100%);
+        }
+
+        .circle-img {
+            width: min(450px, 80vw);
+            height: min(450px, 80vw);
+            object-fit: cover;
+            border-radius: 20px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+            border: 4px solid rgba(74, 144, 226, 0.3);
+            transition: 0.3s;
+        }
+
+        .circle-img:hover {
+            transform: scale(1.02);
+            border-color: var(--primary);
+        }
+
+        .menu-section {
+            padding: clamp(40px, 8vw, 80px) 5%;
+            background: linear-gradient(135deg, #0f0b07 0%, #1a130c 100%);
+        }
+
+        .filter-bar {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .filter-btn {
+            padding: clamp(10px, 2vw, 14px) clamp(15px, 4vw, 30px);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(74, 144, 226, 0.2);
+            color: var(--text-light);
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.3s;
+            font-size: clamp(12px, 3vw, 14px);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            min-height: 44px;
+        }
+
+        .filter-btn.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: #0f0b07;
+        }
+
+        .filter-btn:hover {
+            border-color: var(--primary);
+            background: rgba(74, 144, 226, 0.1);
+        }
+
+        .search-stats {
+            text-align: center;
+            margin-bottom: 20px;
+            color: var(--text-muted);
+            font-size: clamp(13px, 3vw, 14px);
+        }
+
+        .search-stats span {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .menu-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .category-section {
+            width: 100%;
+        }
+
+        .category-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--primary);
+            font-size: clamp(20px, 5vw, 28px);
+            color: var(--primary);
+            font-family: 'Playfair Display', serif;
+        }
+
+        .category-title i {
+            font-size: clamp(24px, 5vw, 32px);
+        }
+
+        .category-products {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            padding: 5px 0 20px 0;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary) var(--card-bg);
+        }
+
+        .category-products::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        .category-products::-webkit-scrollbar-track {
+            background: var(--card-bg);
+            border-radius: 10px;
+        }
+
+        .category-products::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 10px;
+        }
+
+        .category-products::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-dark);
+        }
+
+        .category-products .card {
+            flex: 0 0 auto;
+            width: min(280px, 70vw);
+            background: var(--card-bg);
+            padding: clamp(15px, 3vw, 20px);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            transition: 0.3s;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            border-color: var(--primary);
+            box-shadow: 0 20px 40px rgba(74, 144, 226, 0.15);
+        }
+
+        .card img {
+            width: 100%;
+            height: clamp(150px, 30vw, 200px);
+            border-radius: 12px;
+            object-fit: cover;
+            margin-bottom: 12px;
+            border: 2px solid rgba(74, 144, 226, 0.1);
+        }
+
+        .card:hover img {
+            border-color: var(--primary);
+        }
+
+        .card h3 {
+            font-size: clamp(15px, 3.5vw, 18px);
+            margin-bottom: 5px;
+            color: var(--text-light);
+            font-weight: 700;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .product-weight {
+            font-size: clamp(11px, 2.5vw, 12px);
+            color: var(--primary);
+            margin-bottom: 8px;
+            font-weight: 500;
+            background: rgba(74, 144, 226, 0.1);
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+        }
+
+        .price {
+            font-size: clamp(15px, 3.5vw, 18px);
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .goto-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--primary);
+            color: #0f0b07;
+            width: clamp(36px, 6vw, 40px);
+            height: clamp(36px, 6vw, 40px);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            transition: 0.3s;
+            border: none;
+            font-size: clamp(14px, 3vw, 16px);
+        }
+
+        .card:hover .goto-btn {
+            opacity: 1;
+        }
+
+        .goto-btn:hover {
+            transform: scale(1.1);
+            background: var(--primary-dark);
+        }
+
+        .quantity-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 5px;
+            margin-top: 10px;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 8px;
+            border-radius: 8px;
+        }
+
+        .qty-btn {
+            flex: 1;
+            padding: clamp(8px, 1.5vw, 10px);
+            border-radius: 6px;
+            border: 1px solid rgba(74, 144, 226, 0.2);
+            background: transparent;
+            color: var(--text-light);
+            font-size: clamp(14px, 3vw, 16px);
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            min-height: 40px;
+        }
+
+        .qty-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .qty-btn:hover:not(:disabled) {
+            border-color: var(--primary);
+            background: rgba(74, 144, 226, 0.1);
+            color: var(--primary);
+        }
+
+        .qty-btn.plus {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: #0f0b07;
+        }
+
+        .qty-btn.plus:hover:not(:disabled) {
+            background: var(--primary-dark);
+        }
+
+        .qty-value {
+            font-weight: 800;
+            min-width: 35px;
+            text-align: center;
+            font-size: clamp(14px, 3vw, 16px);
+            color: var(--primary);
+        }
+
+        .side-panel {
+            position: fixed;
+            right: -450px;
+            top: 0;
+            width: min(450px, 100%);
+            height: 100vh;
+            background: #1a130c;
+            z-index: 2000;
+            transition: 0.4s;
+            padding: clamp(20px, 5vw, 30px);
+            box-shadow: -10px 0 50px rgba(0, 0, 0, 0.8);
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            border-left: 2px solid var(--primary);
+        }
+
+        .side-panel.active {
+            right: 0;
+        }
+
+        .rooms-panel {
+            position: fixed;
+            right: -450px;
+            top: 0;
+            width: min(450px, 100%);
+            height: 100vh;
+            background: #1a130c;
+            z-index: 2000;
+            transition: 0.4s;
+            padding: clamp(20px, 5vw, 30px);
+            box-shadow: -10px 0 50px rgba(0, 0, 0, 0.8);
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            border-left: 2px solid var(--primary);
+        }
+
+        .rooms-panel.active {
+            right: 0;
+        }
+
+        .orders-panel {
+            position: fixed;
+            right: -450px;
+            top: 0;
+            width: min(450px, 100%);
+            height: 100vh;
+            background: #1a130c;
+            z-index: 2000;
+            transition: 0.4s;
+            padding: clamp(20px, 5vw, 30px);
+            box-shadow: -10px 0 50px rgba(0, 0, 0, 0.8);
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            border-left: 2px solid var(--primary);
+        }
+
+        .orders-panel.active {
+            right: 0;
+        }
+
+        .rooms-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .room-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 2px solid rgba(74, 144, 226, 0.2);
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .room-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+        }
+
+        .room-card.available {
+            border-color: var(--room-available);
+        }
+
+        .room-card.booked {
+            border-color: var(--room-booked);
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        .room-number {
+            font-size: 26px;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .room-status {
+            font-size: 13px;
+            padding: 5px 10px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-top: 5px;
+        }
+
+        .room-status.available {
+            background: rgba(76, 175, 80, 0.2);
+            color: var(--room-available);
+        }
+
+        .room-status.booked {
+            background: rgba(244, 67, 54, 0.2);
+            color: var(--room-booked);
+        }
+
+        .room-time {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 5px;
+        }
+
+        .room-booking-form {
+            background: rgba(74, 144, 226, 0.05);
+            border: 1px solid rgba(74, 144, 226, 0.2);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .my-orders-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .order-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(74, 144, 226, 0.2);
+            border-radius: 12px;
+            padding: 15px;
+            transition: 0.3s;
+        }
+
+        .order-card:hover {
+            border-color: var(--primary);
+        }
+
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(74, 144, 226, 0.2);
+        }
+
+        .order-id {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 14px;
+        }
+
+        .order-status {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .status-preparing {
+            background: rgba(255, 152, 0, 0.2);
+            color: #ff9800;
+        }
+
+        .status-ready {
+            background: rgba(76, 175, 80, 0.2);
+            color: #4caf50;
+        }
+
+        .status-delivered {
+            background: rgba(33, 150, 243, 0.2);
+            color: #2196f3;
+        }
+
+        .status-courier {
+            background: rgba(255, 153, 0, 0.2);
+            color: #ff9900;
+        }
+
+        .order-time-line {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .time-item {
+            text-align: center;
+            flex: 1;
+        }
+
+        .time-label {
+            font-size: 11px;
+            margin-bottom: 2px;
+        }
+
+        .time-value {
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 14px;
+        }
+
+        .order-items {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-top: 8px;
+        }
+
+        .courier-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 15px 0;
+            padding: 15px;
+            background: rgba(255, 153, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        .courier-checkbox input {
+            width: 22px;
+            height: 22px;
+            accent-color: var(--courier);
+        }
+
+        .courier-checkbox label {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--courier);
+        }
+
+        .courier-price {
+            margin-left: auto;
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--courier);
+        }
+
+        #aboutModal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 11, 7, 0.95);
+            z-index: 3000;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(8px);
+        }
+
+        .about-box {
+            background: #1a130c;
+            padding: clamp(25px, 6vw, 45px);
+            border-radius: 20px;
+            max-width: 500px;
+            width: 90%;
+            border: 1px solid var(--primary);
+            text-align: center;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .checkout-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin: 15px 0;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .form-group label {
+            font-size: 14px;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            background: #2c1e14;
+            border: 1px solid rgba(74, 144, 226, 0.2);
+            border-radius: 8px;
+            padding: 14px;
+            color: var(--text-light);
+            font-size: 15px;
+            transition: 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+        }
+
+        .order-summary {
+            background: #2c1e14;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+            max-height: 200px;
+            overflow-y: auto;
+            border: 1px solid rgba(74, 144, 226, 0.2);
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: var(--text-muted);
+            padding: 5px 0;
+            border-bottom: 1px dashed rgba(74, 144, 226, 0.2);
+        }
+
+        .summary-total {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 2px solid var(--primary);
+            font-weight: 800;
+            color: var(--primary);
+            font-size: clamp(16px, 4vw, 18px);
+        }
+
+        .step-indicator {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .step {
+            flex: 1;
+            text-align: center;
+            padding: 12px;
+            border-radius: 8px;
+            background: #2c1e14;
+            color: var(--text-muted);
+            font-size: 13px;
+            font-weight: 600;
+            border: 1px solid rgba(74, 144, 226, 0.2);
+        }
+
+        .step.active {
+            background: var(--primary);
+            color: #0f0b07;
+            border-color: var(--primary);
+        }
+
+        .back-btn {
+            background: transparent;
+            border: 1px solid rgba(74, 144, 226, 0.3);
+            color: var(--text-light);
+            padding: 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-bottom: 15px;
+            transition: 0.3s;
+            font-weight: 600;
+            font-size: 14px;
+            min-height: 48px;
+        }
+
+        .back-btn:hover:not(:disabled) {
+            border-color: var(--primary);
+            background: rgba(74, 144, 226, 0.1);
+        }
+
+        .error-message {
+            color: #ff6b6b;
+            font-size: 13px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .quantity-input {
+            width: 60px;
+            text-align: center;
+            background: #2c1e14;
+            border: 1px solid rgba(74, 144, 226, 0.2);
+            border-radius: 6px;
+            color: var(--text-light);
+            padding: 8px;
+            margin: 0 5px;
+            font-size: 15px;
+        }
+
+        .quantity-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .footer {
+            background: rgba(15, 11, 7, 0.95);
+            border-top: 1px solid rgba(74, 144, 226, 0.2);
+            padding: 20px 5%;
+            text-align: center;
+            margin-top: auto;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-text {
+            color: var(--text-muted);
+            font-size: 13px;
+            letter-spacing: 1px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 20px;
+            margin-top: 5px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .footer-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 12px;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 5px;
+        }
+
+        .footer-link:hover {
+            color: var(--primary);
+        }
+
+        .footer-copyright {
+            color: var(--text-muted);
+            font-size: 11px;
+            margin-top: 5px;
+            opacity: 0.8;
+        }
+
+        .scroll-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--primary);
+            color: #0f0b07;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            transition: 0.3s;
+            border: none;
+            font-size: 20px;
+            z-index: 999;
+        }
+
+        .scroll-to-top.show {
+            opacity: 1;
+        }
+
+        .scroll-to-top:hover {
+            transform: scale(1.1);
+            background: var(--primary-dark);
+        }
+
+        .login-required {
+            text-align: center;
+            padding: 20px;
+            background: rgba(74, 144, 226, 0.1);
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .login-required button {
+            background: var(--primary);
+            color: #0f0b07;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            margin-top: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            min-height: 44px;
+        }
+
+        .tab-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .tab-button {
+            flex: 1;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(74, 144, 226, 0.2);
+            border-radius: 6px;
+            color: var(--text-light);
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            min-height: 44px;
+        }
+
+        .tab-button.active {
+            background: var(--primary);
+            color: #0f0b07;
+            border-color: var(--primary);
+        }
+
+        .form-tab {
+            display: none;
+        }
+
+        .form-tab.active {
+            display: block;
+        }
+
+        #profileOverlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1000;
+        }
+
+        #profileOverlay.active {
+            display: block;
+        }
+
+        .admin-info-box {
+            background: rgba(74, 144, 226, 0.07);
+            border: 1px solid rgba(74, 144, 226, 0.2);
+            border-radius: 8px;
+            padding: 12px 15px;
+            margin-bottom: 16px;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .admin-info-box span {
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .max-warning {
+            color: var(--warning);
+            font-size: 13px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-muted);
+            font-size: 16px;
+            grid-column: 1 / -1;
+        }
+
+        .highlight {
+            background-color: var(--primary);
+            color: #0f0b07;
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        /* MOBILE RESPONSIVE - TUGMALAR HAMBURGERGA O'TADI */
+        @media (max-width: 992px) {
+
+            /* Desktop tugmalarni yashirish */
+            .nav-btn:not(.hamburger-menu) {
+                display: none !important;
+            }
+
+            /* Rooms, Orders, Profile, Cart ikonkalarini ham yashirish */
+            .rooms-icon-btn,
+            .orders-icon-btn,
+            .profile-container,
+            .cart-icon-btn {
+                display: none !important;
+            }
+
+            /* Hamburger menyu ko'rinadi */
+            .hamburger-menu {
+                display: flex !important;
+            }
+
+            .nav-right {
+                gap: 8px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .category-products .card {
+                width: min(220px, 45vw);
+            }
+
+            .category-products .card img {
+                height: 130px;
+            }
+
+            .card h3 {
+                font-size: 14px;
+            }
+
+            .price {
+                font-size: 14px;
+            }
+
+            .qty-btn {
+                padding: 8px;
+                font-size: 14px;
+            }
+
+            .hero {
+                text-align: center;
+            }
+
+            .hero-left p {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .stats-box {
+                justify-content: center;
+            }
+
+            .filter-bar {
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                justify-content: flex-start;
+                padding: 5px 0;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .filter-btn {
+                flex: 0 0 auto;
+            }
+
+            .rooms-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .order-time-line {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .time-item {
+                display: flex;
+                justify-content: space-between;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .rooms-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .logo-main {
+                font-size: 16px;
+            }
+
+            .logo-sub {
+                font-size: 8px;
+            }
+
+            .search-input {
+                width: 140px;
+            }
+
+            .category-products .card {
+                width: min(180px, 42vw);
+                padding: 12px;
+            }
+
+            .category-products .card img {
+                height: 110px;
+            }
+
+            .card h3 {
+                font-size: 13px;
+            }
+
+            .product-weight {
+                font-size: 10px;
+            }
+
+            .price {
+                font-size: 13px;
+            }
+
+            .qty-btn {
+                padding: 6px;
+                font-size: 13px;
+            }
+
+            .qty-value {
+                min-width: 30px;
+                font-size: 13px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .rooms-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .search-input {
+                width: 120px;
+            }
+
+            .category-products .card {
+                width: min(160px, 40vw);
+                padding: 10px;
+            }
+
+            .category-products .card img {
+                height: 100px;
+            }
+        }
+
+        @media (hover: none) and (pointer: coarse) {
+            .card:hover {
+                transform: none;
+            }
+
+            .nav-btn:hover {
+                transform: none;
+            }
+
+            .goto-btn {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body class="protected-content">
+    <!-- Landscape Error Message - Telefon yonboshlaganda chiqadi -->
+    <div class="landscape-error" id="landscapeError">
+        <div class="error-icon">⚠️</div>
+        <h1>!! Xatolik !!</h1>
+        <p>Iltimos, telefonni vertikal holda ishlating</p>
+        <p style="font-size: 14px; opacity: 0.7;">Please use your phone in portrait mode</p>
+    </div>
+
+    <!-- Notification - O'ng tomonda chiqadi -->
+    <div id="notification" class="notification" onclick="handleNotificationClick()">
+        <div class="notification-icon" id="notificationIcon">🛒</div>
+        <div class="notification-content">
+            <div class="notification-title" id="notificationTitle">Mahsulot qo'shildi</div>
+            <div class="notification-message" id="notificationMessage"></div>
+        </div>
+        <div class="notification-close" onclick="event.stopPropagation(); hideNotification();">✕</div>
+    </div>
+
+    <!-- Overlay -->
+    <div id="profileOverlay" onclick="closeProfileDropdown()"></div>
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay" onclick="closeMobileMenu()"></div>
+
+    <!-- HAMBURGER MENU (MOBILE) - Barcha tugmalar shu yerda -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid var(--primary);">
+            <h3 style="color: var(--primary);">🍔 MENU</h3>
+            <div class="mobile-menu-close" onclick="closeMobileMenu()" style="font-size: 24px; cursor: pointer; color: var(--primary);">✕</div>
+        </div>
+        
+        <!-- Profil -->
+        <div class="mobile-menu-item" onclick="toggleProfileDropdown(); closeMobileMenu();">
+            <i class="fas fa-user-circle"></i>
+            <span>Profil</span>
+            <span class="badge" id="mobileProfileBadge" style="display: none;">!</span>
+        </div>
+        
+        <!-- Buyurtmalarim -->
+        <div class="mobile-menu-item" onclick="toggleMyOrdersPanel(); closeMobileMenu();">
+            <i class="fas fa-list"></i>
+            <span>Buyurtmalarim</span>
+            <span class="badge" id="mobileOrdersBadge">0</span>
+        </div>
+        
+        <!-- Xonalar -->
+        <div class="mobile-menu-item" onclick="toggleRoomsPanel(); closeMobileMenu();">
+            <i class="fas fa-door-open"></i>
+            <span>Xonalar</span>
+            <span class="badge" id="mobileRoomsBadge">0/15</span>
+        </div>
+        
+        <!-- Savatcha -->
+        <div class="mobile-menu-item" onclick="togglePanel('cartPanel'); closeMobileMenu();">
+            <i class="fas fa-shopping-cart"></i>
+            <span>Savatcha</span>
+            <span class="badge" id="mobileCartBadge">0</span>
+        </div>
+        
+        <div style="height: 1px; background: rgba(74, 144, 226, 0.2); margin: 15px 0;"></div>
+        
+        <!-- Biz haqimizda -->
+        <div class="mobile-menu-item" onclick="toggleAbout(true); closeMobileMenu();">
+            <i class="fas fa-info-circle"></i>
+            <span>Biz haqimizda</span>
+        </div>
+        
+        <!-- Admin panel -->
+        <div class="mobile-menu-item" onclick="toggleAdminPanel(); closeMobileMenu();">
+            <i class="fas fa-crown"></i>
+            <span>Admin panel</span>
+        </div>
+        
+        <div style="height: 1px; background: rgba(74, 144, 226, 0.2); margin: 15px 0;"></div>
+        
+        <!-- Til tanlash -->
+        <div class="mobile-menu-item" onclick="changeLang('uz'); closeMobileMenu();">
+            <i class="fas fa-language"></i>
+            <span>🇺🇿 O'zbek tili</span>
+        </div>
+        
+        <div class="mobile-menu-item" onclick="changeLang('ru'); closeMobileMenu();">
+            <i class="fas fa-language"></i>
+            <span>🇷🇺 Русский язык</span>
+        </div>
+        
+        <div class="mobile-menu-item" onclick="changeLang('en'); closeMobileMenu();">
+            <i class="fas fa-language"></i>
+            <span>🇬🇧 English</span>
+        </div>
+    </div>
+
+    <!-- NAVIGATSIYA -->
+    <nav>
+        <div class="logo-container" onclick="scrollToTop()">
+            <div class="logo-image"><span class="float-emoji">🏛️</span></div>
+            <div class="logo-text">
+                <div class="logo-main">AHMADBEK <span>majmuasi</span></div>
+                <div class="logo-sub">15 XONA</div>
+            </div>
+        </div>
+
+        <div class="nav-right">
+            <!-- SEARCH - hamma qurilmalarda ko'rinadi -->
+            <div class="search-container">
+                <input type="text" class="search-input" id="searchInput" placeholder="Qidirish..." onkeyup="searchProducts()">
+                <i class="fas fa-search search-icon" onclick="searchProducts()"></i>
+                <i class="fas fa-times clear-search" id="clearSearch" onclick="clearSearch()"></i>
+            </div>
+            
+            <!-- DESKTOP MENU - FAQAT KATTA EKRANLARDA (992px dan sara) -->
+            <select onchange="changeLang(this.value)" class="nav-btn">
+                <option value="uz">🇺🇿 O'zbek</option>
+                <option value="ru">🇷🇺 Русский</option>
+                <option value="en">🇬🇧 English</option>
+            </select>
+            
+            <div class="nav-btn" onclick="toggleAbout(true)">
+                📜 <span id="navAbout">Biz haqimizda</span>
+            </div>
+            
+            <div class="nav-btn" onclick="toggleAdminPanel()">
+                ⚜️ <span id="navAdmin">Admin</span>
+            </div>
+            
+            <!-- DESKTOP Ikonkalar - sara ekranda ko'rinadi, mobilda yashirin -->
+            <div class="rooms-icon-btn" onclick="toggleRoomsPanel()" title="Xonalar">
+                🚪 <span id="roomsCount">0/15</span>
+            </div>
+            
+            <div class="orders-icon-btn" onclick="toggleMyOrdersPanel()" title="Buyurtmalarim">
+                📋 <span id="myOrdersCount">0</span>
+            </div>
+            
+            <div class="profile-container">
+                <div class="profile-icon" onclick="toggleProfileDropdown()" id="profileIcon">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="profile-dropdown" id="profileDropdown"></div>
+            </div>
+            
+            <div class="cart-icon-btn" onclick="togglePanel('cartPanel')">
+                🛒 <span id="cartCount">0</span>
+            </div>
+
+            <!-- HAMBURGER MENU - FAQAT MOBILDA (992px dan kichik) -->
+            <div class="hamburger-menu" id="hamburgerMenu" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+    <!-- Admin Panel -->
+    <div id="adminPanel" class="admin-panel">
+        <div class="admin-header">
+            <div class="admin-title"><span>⚜️</span> Admin Panel</div>
+            <div class="admin-close" onclick="toggleAdminPanel()">✕</div>
+        </div>
+    
+        <!-- Admin Login -->
+        <div id="adminLogin" class="admin-login-box">
+            <h2>Admin paroli:</h2>
+            <input type="password" id="adminPassword" placeholder="Parolni kiriting"
+                onkeypress="handleAdminKeyPress(event)">
+            <button onclick="checkAdminPassword()">OK</button>
+        </div>
+    
+        <!-- Admin Content (parol to'g'ri bo'lganda ko'rinadi) -->
+        <div id="adminContent" style="display: none;">
+            <div class="admin-tabs">
+                <div class="admin-tab active" onclick="switchAdminTab('dashboard', this)">📊 Dashboard</div>
+                <div class="admin-tab" onclick="switchAdminTab('users', this)">👥 Foydalanuvchilar</div>
+                <div class="admin-tab" onclick="switchAdminTab('orders', this)">📦 Buyurtmalar</div>
+                <div class="admin-tab" onclick="switchAdminTab('rooms', this)">🚪 Xonalar</div>
+                <div class="admin-tab" onclick="switchAdminTab('products', this)">🍽️ Mahsulotlar</div>
+                <div class="admin-tab" onclick="switchAdminTab('addProduct', this)">➕ Yangi mahsulot</div>
+                <div class="admin-tab" onclick="logoutAdmin()">🚪 Chiqish</div>
+            </div>
+    
+            <!-- DASHBOARD -->
+            <div id="dashboard" class="admin-content active">
+                <h3>Statistika</h3>
+                <div
+                    style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(150px, 100%), 1fr)); gap: 15px; margin: 20px 0;">
+                    <div style="background: rgba(74,144,226,0.1); padding: 20px; border-radius: 10px; text-align: center;">
+                        <div style="font-size: clamp(24px, 6vw, 36px); color: var(--primary);" id="totalOrdersStat">0</div>
+                        <div style="font-size: clamp(12px, 3vw, 14px);">Jami buyurtmalar</div>
+                    </div>
+                    <div style="background: rgba(74,144,226,0.1); padding: 20px; border-radius: 10px; text-align: center;">
+                        <div style="font-size: clamp(24px, 6vw, 36px); color: var(--primary);" id="totalRevenueStat">0</div>
+                        <div style="font-size: clamp(12px, 3vw, 14px);">Jami daromad</div>
+                    </div>
+                    <div style="background: rgba(74,144,226,0.1); padding: 20px; border-radius: 10px; text-align: center;">
+                        <div style="font-size: clamp(24px, 6vw, 36px); color: var(--primary);" id="totalProductsStat">0
+                        </div>
+                        <div style="font-size: clamp(12px, 3vw, 14px);">Mahsulotlar</div>
+                    </div>
+                    <div style="background: rgba(74,144,226,0.1); padding: 20px; border-radius: 10px; text-align: center;">
+                        <div style="font-size: clamp(24px, 6vw, 36px); color: var(--primary);" id="totalRoomsStat">0/15
+                        </div>
+                        <div style="font-size: clamp(12px, 3vw, 14px);">Band xonalar</div>
+                    </div>
+                </div>
+                <h3>Oxirgi buyurtmalar</h3>
+                <div id="recentOrdersList"></div>
+            </div>
+    
+            <!-- USERS -->
+            <div id="users" class="admin-content">
+                <h3 class="admin-section-title">👥 Foydalanuvchilar boshqaruvi</h3>
+    
+                <div class="add-user-form">
+                    <h4>➕ Yangi foydalanuvchi qo'shish</h4>
+                    <div class="add-user-grid">
+                        <input type="text" id="newUserName" placeholder="Ism *">
+                        <input type="text" id="newUserPhone" value="+998 " oninput="formatPhone(this)"
+                            placeholder="+998 90 123 45 67 *">
+                        <input type="password" id="newUserPassword" placeholder="Parol (min 4 ta) *">
+                        <input type="number" id="newUserMaxOrder" placeholder="Max buyurtma" value="100" min="1" max="1000">
+                        <div style="display:flex; align-items:center; gap:8px;">
+                            <label style="font-size:13px; color:var(--text-muted);">Admin huquqi:</label>
+                            <input type="checkbox" id="newUserIsAdmin" style="width:auto; accent-color: var(--primary);">
+                        </div>
+                    </div>
+                    <button class="add-user-btn" onclick="addNewUser()">➕ Qo'shish</button>
+                </div>
+    
+                <div class="admin-info-box">
+                    Admin huquqi berilganlar: <span id="adminCountDisplay">0</span> / 5 ta
+                </div>
+    
+                <div style="overflow-x: auto;">
+                    <table class="users-table">
+                        <thead>
+                            <tr>
+                                <th>Ism</th>
+                                <th>Telefon</th>
+                                <th>Holat</th>
+                                <th>Max. buyurtma</th>
+                                <th>Amallar</th>
+                            </tr>
+                        </thead>
+                        <tbody id="usersList"></tbody>
+                    </table>
+                </div>
+            </div>
+    
+            <!-- ORDERS -->
+            <div id="orders" class="admin-content">
+                <h3>Barcha buyurtmalar</h3>
+                <div style="overflow-x: auto;">
+                    <table class="orders-table">
+                        <thead>
+                            <tr>
+                                <th>Vaqt</th>
+                                <th>Mijoz</th>
+                                <th>Telefon</th>
+                                <th>Manzil</th>
+                                <th>Buyurtma</th>
+                                <th>Yetkazish</th>
+                                <th>Holat</th>
+                                <th>Jami</th>
+                                <th>Amallar</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ordersList"></tbody>
+                    </table>
+                </div>
+            </div>
+    
+            <!-- ROOMS -->
+            <div id="rooms" class="admin-content">
+                <h3 class="admin-section-title">🚪 Xonalar boshqaruvi (15 xona)</h3>
+                <div class="rooms-grid" id="adminRoomsGrid"
+                    style="grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));"></div>
+            </div>
+    
+            <!-- PRODUCTS - Mahsulotlarni tahrirlash -->
+            <div id="products" class="admin-content">
+                <h3 class="admin-section-title">🍽️ Mahsulotlarni tahrirlash</h3>
+    
+                <!-- Barcha rasmlarni almashtirish tugmasi -->
+                <button class="mass-image-btn" onclick="changeAllProductImages()"
+                    style="margin-bottom: 20px; padding: 12px; background: var(--primary); color: #0f0b07; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; width: 100%;">
+                    <i class="fas fa-images"></i> Barcha rasmlarni almashtirish
+                </button>
+    
+                <!-- Qidiruv -->
+                <div class="admin-search-container">
+                    <input type="text" class="admin-search-input" id="adminSearchInput" placeholder="Mahsulot qidirish..."
+                        onkeyup="filterAdminProducts()">
+                    <i class="fas fa-search admin-search-icon"></i>
+                    <i class="fas fa-times admin-clear-search" id="adminClearSearch" onclick="clearAdminSearch()"></i>
+                    <div class="admin-search-stats" id="adminSearchStats" style="display: none;">
+                        <span id="adminSearchCount">0</span> ta mahsulot topildi
+                    </div>
+                </div>
+    
+                <!-- Mahsulotlar grid -->
+                <div class="products-grid" id="productsGrid"></div>
+            </div>
+    
+            <!-- ADD PRODUCT - Yangi mahsulot qo'shish (MAJBURIY MAYDONLAR) -->
+            <div id="addProduct" class="admin-content">
+                <h3 class="admin-section-title">➕ Yangi mahsulot qo'shish</h3>
+                <div style="background: rgba(255,255,255,0.03); padding: 30px; border-radius: 12px; margin-top: 20px;">
+                    <div style="margin-bottom: 15px;">
+                        <label style="color: var(--primary); font-weight: 600; display: block; margin-bottom: 5px;">Nomi
+                            *</label>
+                        <input type="text" id="newProductName" placeholder="Masalan: Toshkent Palovi"
+                            style="width: 100%; padding: 12px; background: #2c1e14; border: 1px solid rgba(74,144,226,0.2); border-radius: 6px; color: white; font-size: 15px;">
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <label
+                            style="color: var(--primary); font-weight: 600; display: block; margin-bottom: 5px;">Kategoriya
+                            *</label>
+                        <select id="newProductCat"
+                            style="width: 100%; padding: 12px; background: #2c1e14; border: 1px solid rgba(74,144,226,0.2); border-radius: 6px; color: white; font-size: 15px;">
+                            <option value="milliy">O'zbek</option>
+                            <option value="burger">Burger</option>
+                            <option value="fastfood">Fast Food</option>
+                            <option value="kabob">Kabob</option>
+                            <option value="salat">Salat</option>
+                            <option value="gazak">Gazak</option>
+                            <option value="ichimlik">Ichimlik</option>
+                            <option value="shirinlik">Shirinlik</option>
+                        </select>
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <label style="color: var(--primary); font-weight: 600; display: block; margin-bottom: 5px;">Narxi
+                            (so'm) *</label>
+                        <input type="number" id="newProductPrice" placeholder="Masalan: 28000"
+                            style="width: 100%; padding: 12px; background: #2c1e14; border: 1px solid rgba(74,144,226,0.2); border-radius: 6px; color: white; font-size: 15px;">
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <label style="color: var(--primary); font-weight: 600; display: block; margin-bottom: 5px;">Miqdori
+                            (gramm/ml) *</label>
+                        <input type="text" id="newProductWeight" placeholder="Masalan: 350g, 500ml" value="350g"
+                            style="width: 100%; padding: 12px; background: #2c1e14; border: 1px solid rgba(74,144,226,0.2); border-radius: 6px; color: white; font-size: 15px;">
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <label style="color: var(--primary); font-weight: 600; display: block; margin-bottom: 5px;">Rasm
+                            URL</label>
+                        <input type="text" id="newProductImage" placeholder="Rasm manzili"
+                            value="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400"
+                            style="width: 100%; padding: 12px; background: #2c1e14; border: 1px solid rgba(74,144,226,0.2); border-radius: 6px; color: white; font-size: 15px;">
+                    </div>
+                    <button class="save-btn" onclick="addNewProduct()"
+                        style="background: var(--primary); color: #0f0b07; padding: 14px; font-size: 16px; font-weight: 700;">✅
+                        Mahsulot qo'shish</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Rooms Panel -->
+    <div id="roomsPanel" class="rooms-panel">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <h2 style="font-size: 24px; color: var(--primary);">🚪 Xonalar</h2>
+            <div style="cursor:pointer; font-size:24px; color:var(--primary);" onclick="toggleRoomsPanel()">✕</div>
+        </div>
+
+        <!-- Xona band qilish formasi - tepada joylashgan -->
+        <div id="roomsBookingForm" class="room-booking-form" style="display: none;">
+            <h3 style="color: var(--primary); margin-bottom: 15px;">⏰ Xona band qilish</h3>
+            <div class="form-group">
+                <label>Xona raqami: <span id="selectedRoomNumber" style="font-weight: 700; color: var(--primary);"></span></label>
+            </div>
+            <div class="form-group">
+                <label>Boshlanish vaqti:</label>
+                <input type="time" id="roomStartTime" value="13:00" style="width: 100%; padding: 12px; background: #2c1e14; border: 1px solid var(--primary); border-radius: 8px; color: white;">
+            </div>
+            <div class="form-group">
+                <label>Tugash vaqti:</label>
+                <input type="time" id="roomEndTime" value="15:00" style="width: 100%; padding: 12px; background: #2c1e14; border: 1px solid var(--primary); border-radius: 8px; color: white;">
+            </div>
+            <div class="form-group">
+                <label>Telefon raqam:</label>
+                <input type="text" id="roomPhone" value="+998 " oninput="formatPhone(this)" placeholder="+998 90 123 45 67" readonly style="width: 100%; padding: 12px; background: #2c1e14; border: 1px solid var(--primary); border-radius: 8px; color: white;">
+            </div>
+            <button class="save-btn" onclick="bookRoom()" style="margin-top: 15px; width: 100%; padding: 14px; background: var(--primary); color: #0f0b07; border: none; border-radius: 8px; font-weight: 700; cursor: pointer;">✅ Band qilish</button>
+        </div>
+
+        <!-- Xonalar grid - pastda joylashgan -->
+        <div class="rooms-grid" id="roomsGrid"></div>
+    </div>
+
+    <!-- My Orders Panel -->
+    <div id="myOrdersPanel" class="orders-panel">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <h2 style="font-size: 24px; color: var(--primary);">📋 Mening buyurtmalarim</h2>
+            <div style="cursor:pointer; font-size:24px; color:var(--primary);" onclick="toggleMyOrdersPanel()">✕</div>
+        </div>
+
+        <div id="loginRequiredOrders" class="login-required" style="display: none;">
+            <p>🔐 Buyurtmalarni ko'rish uchun akkauntga kiring</p>
+            <button onclick="toggleProfileDropdown()">Akkauntga kirish</button>
+        </div>
+
+        <div id="myOrdersList" class="my-orders-list"></div>
+    </div>
+
+    <div class="scroll-to-top" id="scrollToTop" onclick="scrollToTop()">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-left">
+            <div class="top-badge">
+                <span class="float-emoji">⭐</span> 
+                <span id="badgeText">Eng sifatli taomlar</span>
+            </div>
+            <h1 id="heroTitle">Eng sara <br><span>taomlar tanlovi</span></h1>
+            <p id="heroDesc">Turli xil milliy va xorijiy taomlar, Burgerlar va Fast Food. Eng sifatli mahsulotlar, eng tez yetkazib berish. 15 ta qulay xonalar mavjud.</p>
+            <button class="cta-btn" id="ctaBtn" onclick="document.getElementById('menu').scrollIntoView({behavior:'smooth'})">MENYUNI KO'RISH</button>
+            <div class="stats-box">
+                <div class="stat-item">
+                    <h2>77+</h2>
+                    <p id="stat1">Taomlar</p>
+                </div>
+                <div class="stat-item">
+                    <h2>15</h2>
+                    <p id="stat2">Xonalar</p>
+                </div>
+                <div class="stat-item">
+                    <h2>4.9</h2>
+                    <p id="stat3">Reyting</p>
+                </div>
+            </div>
+        </div>
+        <div class="hero-right">
+            <img src="https://t3.ftcdn.net/jpg/06/37/16/64/360_F_637166455_RZOHg6K3M6noLPKQmOHH5ZI70zXEyDaq.jpg" class="circle-img" alt="Restaraunt">
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section class="menu-section" id="menu">
+        <div class="filter-bar" id="filterBar"></div>
+        <div id="searchStats" class="search-stats" style="display: none;">
+            <span id="searchResultCount">0</span> <span id="searchResultText">ta mahsulot topildi</span>
+        </div>
+        <div id="loginRequiredMessage" class="login-required" style="display: none;">
+            <p>🔐 Buyurtma berish uchun akkauntga kiring</p>
+            <button onclick="toggleProfileDropdown()">Akkauntga kirish</button>
+        </div>
+        <div class="menu-grid" id="menuGrid"></div>
+    </section>
+
+    <!-- Cart Panel -->
+    <div id="cartPanel" class="side-panel">
+        <div style="text-align:right; cursor:pointer; font-size:22px; color:var(--primary); margin-bottom:10px;" onclick="togglePanel('cartPanel')">✕</div>
+        <div class="step-indicator">
+            <div class="step active" id="step1">1. SAVATCHA</div>
+            <div class="step" id="step2">2. RASMIYLASHTIRISH</div>
+        </div>
+        <div id="cartView">
+            <h2 id="cartTitle" style="font-size:22px; margin-bottom:15px;">Savatcha</h2>
+            <div id="cartList" style="flex:1; overflow-y:auto; margin:15px 0;"></div>
+            <div class="courier-checkbox">
+                <input type="checkbox" id="courierDelivery">
+                <label for="courierDelivery">🚚 Kuryer orqali yetkazish</label>
+                <span class="courier-price">+20,000 so'm</span>
+            </div>
+            <p style="font-size:18px;"><span id="totalLabel">JAMI:</span> <b id="totalPrice">0</b> <span class="currency">so'm</span></p>
+            <div id="maxWarning" class="max-warning">⚠️ Maksimal mahsulot chegarasiga yetdingiz!</div>
+            <button class="cta-btn" style="width:100%; padding:12px; font-size:14px;" onclick="showCheckout()" id="checkoutBtn">BUYURTMA BERISH</button>
+        </div>
+        
+        <!-- CHECKOUT VIEW - Ism va Telefon o'zgartirish mumkin, lekin +998 o'chmaydi -->
+        <div id="checkoutView" style="display: none;">
+            <button class="back-btn" style="width:100%;" onclick="showCart()">← Savatchaga qaytish</button>
+            <h2 style="font-size:22px; margin:15px 0;">Rasmiylashtirish</h2>
+            <div class="order-summary" id="checkoutSummary"></div>
+            
+            <!-- CHECKOUT FORM -->
+            <div class="checkout-form">
+                <div class="form-group">
+                    <label>Ismingiz *</label>
+                    <input type="text" id="nameInput" placeholder="Ismingizni kiriting" value="" style="width: 100%; padding: 14px; background: #2c1e14; border: 1px solid var(--primary); border-radius: 8px; color: white;">
+                    <div class="error-message" id="nameError">Iltimos, ismingizni kiriting</div>
+                </div>
+                <div class="form-group">
+                    <label>Telefon raqam *</label>
+                    <input type="tel" id="phoneInput" placeholder="+998 90 123 45 67" value="+998 " style="width: 100%; padding: 14px; background: #2c1e14; border: 1px solid var(--primary); border-radius: 8px; color: white;" onkeyup="formatPhoneNumber(this)">
+                    <div class="error-message" id="phoneError">Telefon raqam noto'g'ri formatda</div>
+                    <small style="color: var(--text-muted); font-size: 11px; margin-top: 5px;">+998 ni o'chirib bo'lmaydi, avtomatik formatlanadi</small>
+                </div>
+                <div class="form-group">
+                    <label>Manzil *</label>
+                    <textarea id="addressInput" placeholder="To'liq manzilingizni kiriting" rows="2" style="width: 100%; padding: 14px; background: #2c1e14; border: 1px solid var(--primary); border-radius: 8px; color: white;">Namangan, </textarea>
+                    <div class="error-message" id="addressError">Iltimos, manzilingizni kiriting</div>
+                    <small style="color: var(--text-muted); font-size: 11px; margin-top: 5px;">"Namangan," oldindan yozilgan, o'chirib bo'lmaydi</small>
+                </div>
+                <div class="form-group">
+                    <label>Eslatma (ixtiyoriy)</label>
+                    <textarea id="noteInput" placeholder="Buyurtmangiz haqida qo'shimcha ma'lumot" rows="2" style="width: 100%; padding: 14px; background: #2c1e14; border: 1px solid var(--primary); border-radius: 8px; color: white;"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Promokod</label>
+                    <input type="text" id="promoInput" placeholder="Promokod kiriting" style="width: 100%; padding: 14px; background: #2c1e14; border: 1px solid var(--primary); border-radius: 8px; color: white;">
+                    <div id="promoMessage" style="color: var(--text-muted); font-size: 12px;"></div>
+                </div>
+            </div>
+            <button class="cta-btn" style="width:100%; padding:12px; font-size:14px; margin-top:15px;" onclick="submitOrder()" id="submitOrderBtn">BUYURTMANI YAKUNLASH</button>
+        </div>
+    </div>
+
+    <!-- About Modal -->
+    <div id="aboutModal">
+        <div class="about-box">
+            <h2 id="aboutTitle" style="font-size:26px;">Biz haqimizda</h2>
+            <div style="text-align: left; margin: 25px 0;">
+                <p style="font-size: 24px; color: var(--primary);" id="aboutText1">AHMADBEK majmuasi — 2020</p>
+                <div style="margin: 25px 0;">
+                    <p>📍 <span id="aboutLocation">Namangan shahar, Amir Temur kochasi, 103-uy</span></p>
+                    <p>📞 <span id="aboutPhone">+998 95 300 88 88</span></p>
+                    <p>📱 <span id="aboutTG">@Ahmadbek_restarantt</span></p>
+                </div>
+                <p>✍️ <span id="aboutName">Odilov Abdulquddus</span></p>
+            </div>
+            <button class="cta-btn" style="width:100%; padding:12px; font-size:14px;" onclick="toggleAbout(false)">YOPISH</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-text">AHMADBEK majmuasi © 2020
+            </div>
+            <div class="footer-links">
+                <a href="https://t.me/ItsUzb" target="_blank" class="footer-link">📱 Telegram</a>
+                <a href="https://instagram.com" target="_blank" class="footer-link">📷 Instagram</a>
+            </div>
+            <div class="footer-copyright">Barcha huquqlar himoyalangan © 2020</div>
+        </div>
+    </footer>
+    <script>
+        // Kuryer narxi
+        const COURIER_PRICE = 20000;
+
+        // Notification timer
+        let notificationTimeout = null;
+        let notificationClickProductId = null;
+
+        // Landscape orientation check
+        function checkOrientation() {
+            const errorDiv = document.getElementById('landscapeError');
+            if (window.innerWidth > window.innerHeight && window.innerWidth <= 900) {
+                errorDiv.classList.add('show');
+                document.body.style.overflow = 'hidden';
+            } else {
+                errorDiv.classList.remove('show');
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        window.addEventListener('resize', checkOrientation);
+        window.addEventListener('orientationchange', checkOrientation);
+        checkOrientation();
+
+        // Telefon raqamni formatlash - +998 ni o'chirib bo'lmaydi
+        function formatPhoneNumber(input) {
+            let value = input.value.replace(/\D/g, '');
+
+            // +998 ni saqlash
+            if (!value.startsWith('998')) {
+                value = '998' + value;
+            }
+
+            // 12 ta raqamdan oshmasligi (998 + 9 ta raqam)
+            if (value.length > 12) {
+                value = value.slice(0, 12);
+            }
+
+            // Formatlash: +998 00 000 00 00
+            let formatted = '+998 ';
+            if (value.length > 3) {
+                formatted += value.slice(3, 5);
+                if (value.length > 5) {
+                    formatted += ' ' + value.slice(5, 8);
+                    if (value.length > 8) {
+                        formatted += ' ' + value.slice(8, 10);
+                        if (value.length > 10) {
+                            formatted += ' ' + value.slice(10, 12);
+                        }
+                    }
+                }
+            }
+
+            input.value = formatted;
+
+            // Kursorni oxiriga qo'yish
+            setTimeout(() => {
+                input.selectionStart = input.selectionEnd = input.value.length;
+            }, 10);
+        }
+
+        // Manzilni tekshirish - "Namangan," ni o'chirib bo'lmasligi uchun
+        function validateAddress() {
+            const addressInput = document.getElementById('addressInput');
+            if (!addressInput.value.startsWith('Namangan,')) {
+                addressInput.value = 'Namangan, ' + addressInput.value.replace(/^Namangan,\s*/i, '');
+            }
+        }
+
+        // Notification functions
+        function showNotification(title, message, type, productId = null) {
+            const notification = document.getElementById('notification');
+            const icon = document.getElementById('notificationIcon');
+            const titleEl = document.getElementById('notificationTitle');
+            const messageEl = document.getElementById('notificationMessage');
+
+            notification.classList.remove('success', 'danger');
+            notification.classList.add(type);
+
+            titleEl.textContent = title;
+            messageEl.textContent = message;
+
+            if (type === 'success') {
+                icon.innerHTML = '✅';
+            } else {
+                icon.innerHTML = '❌';
+            }
+
+            notificationClickProductId = productId;
+            notification.classList.add('show');
+
+            if (notificationTimeout) {
+                clearTimeout(notificationTimeout);
+            }
+
+            // 5 sekunddan keyin yo'qoladi
+            notificationTimeout = setTimeout(() => {
+                hideNotification();
+            }, 5000);
+        }
+
+        function hideNotification() {
+            document.getElementById('notification').classList.remove('show');
+            notificationClickProductId = null;
+        }
+
+        function handleNotificationClick() {
+            if (notificationClickProductId) {
+                // Savatchani ochish
+                togglePanel('cartPanel');
+            }
+            hideNotification();
+        }
+
+        // Mobile menu functions
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            const overlay = document.getElementById('mobileMenuOverlay');
+            const hamburger = document.getElementById('hamburgerMenu');
+            menu.classList.toggle('active');
+            overlay.classList.toggle('active');
+            hamburger.classList.toggle('active');
+            updateMobileBadges();
+        }
+
+        function closeMobileMenu() {
+            document.getElementById('mobileMenu').classList.remove('active');
+            document.getElementById('mobileMenuOverlay').classList.remove('active');
+            document.getElementById('hamburgerMenu').classList.remove('active');
+        }
+
+        function updateMobileBadges() {
+            const ordersBadge = document.getElementById('mobileOrdersBadge');
+            const roomsBadge = document.getElementById('mobileRoomsBadge');
+            const profileBadge = document.getElementById('mobileProfileBadge');
+            const cartBadge = document.getElementById('mobileCartBadge');
+
+            if (ordersBadge) {
+                const ordersCount = document.getElementById('myOrdersCount')?.innerText || '0';
+                ordersBadge.innerText = ordersCount;
+            }
+
+            if (roomsBadge) {
+                const roomsCount = document.getElementById('roomsCount')?.innerText || '0/15';
+                roomsBadge.innerText = roomsCount;
+            }
+
+            if (cartBadge) {
+                const cartCount = document.getElementById('cartCount')?.innerText || '0';
+                cartBadge.innerText = cartCount;
+            }
+
+            if (profileBadge) {
+                profileBadge.style.display = currentUser ? 'none' : 'inline-block';
+            }
+        }
+
+        // Language data
+        const langData = {
+            uz: {
+                navAbout: "Biz haqimizda",
+                navAdmin: "Admin",
+                badgeText: "Eng sifatli taomlar to'plami.",
+                heroTitle: "Eng sara <br><span>taomlar tanlovi</span>",
+                heroDesc: "Turli xil milliy va xorijiy taomlar, Burgerlar va Fast Food. Eng sifatli mahsulotlar, eng tez yetkazib berish. 15 ta qulay xonalar mavjud.",
+                ctaBtn: "MENYUNI KO'RISH",
+                stat1: "Taomlar",
+                stat2: "Xonalar",
+                stat3: "Reyting",
+                all: "BARCHASI",
+                milliy: "O'ZBEK",
+                burger: "BURGERLAR",
+                fastfood: "FAST FOOD",
+                kabob: "KABOBLAR",
+                salat: "SALATLAR",
+                gazak: "GAZAKLAR",
+                ichimlik: "ICHIMLIKLAR",
+                shirinlik: "SHIRINLIKLAR",
+                cartTitle: "Savatcha",
+                totalLabel: "JAMI:",
+                currency: "so'm",
+                aboutTitle: "Biz haqimizda",
+                aboutClose: "YOPISH",
+                aboutText1: "AHMADBEK majmuasi — 2020",
+                aboutLocation: "Namangan shahar, Amir Temur kochasi, 103-uy",
+                aboutPhone: "+998 95 300 88 88",
+                aboutTG: "@Ahmadbek_restarantt",
+                aboutName: "Odilov Abdulquddus",
+                searchPlaceholder: "Qidiruv...",
+                searchResults: "ta mahsulot topildi",
+                noResults: "Hech narsa topilmadi",
+                addedToCart: "savatchaga qo'shildi",
+                removedFromCart: "savatchadan olib tashlandi",
+                categories: {
+                    milliy: "O'ZBEK TAOMLARI",
+                    burger: "BURGERLAR",
+                    fastfood: "FAST FOOD",
+                    kabob: "KABOBLAR",
+                    salat: "SALATLAR",
+                    gazak: "GAZAKLAR",
+                    ichimlik: "ICHIMLIKLAR",
+                    shirinlik: "SHIRINLIKLAR"
+                }
+            },
+            ru: {
+                navAbout: "О нас",
+                navAdmin: "Админ",
+                badgeText: "Подборка блюд высочайшего качества.",
+                heroTitle: "Лучший <br><span>кулинарный конкурс</span>",
+                heroDesc: "Различные национальные и иностранные блюда, бургеры и фаст-фуд. Качественные продукты, быстрая доставка. 15 уютных комнат.",
+                ctaBtn: "МЕНЮ",
+                stat1: "Блюда",
+                stat2: "Комнаты",
+                stat3: "Рейтинг",
+                all: "ВСЕ",
+                milliy: "УЗБЕКСКИЕ",
+                burger: "БУРГЕРЫ",
+                fastfood: "ФАСТ-ФУД",
+                kabob: "ШАШЛЫКИ",
+                salat: "САЛАТЫ",
+                gazak: "ЗАКУСКИ",
+                ichimlik: "НАПИТКИ",
+                shirinlik: "ДЕСЕРТЫ",
+                cartTitle: "Корзина",
+                totalLabel: "ИТОГО:",
+                currency: "сум",
+                aboutTitle: "О нас",
+                aboutClose: "ЗАКРЫТЬ",
+                aboutText1: "AHMADBEK majmuasi — 2020",
+                aboutLocation: "Наманган, Узбекистан",
+                aboutPhone: "+998 90 260 88 88",
+                aboutTG: "@odilovabdulquddus",
+                aboutName: "AHMADBEK majmuasi",
+                searchPlaceholder: "Поиск...",
+                searchResults: "товаров найдено",
+                noResults: "Ничего не найдено",
+                addedToCart: "добавлено в корзину",
+                removedFromCart: "удалено из корзины",
+                categories: {
+                    milliy: "УЗБЕКСКИЕ БЛЮДА",
+                    burger: "БУРГЕРЫ",
+                    fastfood: "ФАСТ-ФУД",
+                    kabob: "ШАШЛЫКИ",
+                    salat: "САЛАТЫ",
+                    gazak: "ЗАКУСКИ",
+                    ichimlik: "НАПИТКИ",
+                    shirinlik: "ДЕСЕРТЫ"
+                }
+            },
+            en: {
+                navAbout: "About Us",
+                navAdmin: "Admin",
+                badgeText: "A collection of the highest quality dishes.",
+                heroTitle: "The best <br><span>food competition</span>",
+                heroDesc: "Various national and international dishes, Burgers and Fast Food. Quality products, fast delivery. 15 comfortable rooms available.",
+                ctaBtn: "VIEW MENU",
+                stat1: "Dishes",
+                stat2: "Rooms",
+                stat3: "Rating",
+                all: "ALL",
+                milliy: "UZBEK",
+                burger: "BURGERS",
+                fastfood: "FAST FOOD",
+                kabob: "KABOBS",
+                salat: "SALADS",
+                gazak: "SNACKS",
+                ichimlik: "DRINKS",
+                shirinlik: "DESSERTS",
+                cartTitle: "Cart",
+                totalLabel: "TOTAL:",
+                currency: "sum",
+                aboutTitle: "About Us",
+                aboutClose: "CLOSE",
+                aboutText1: "AHMADBEK majmuasi — 2020",
+                aboutLocation: "Namangan, Uzbekistan",
+                aboutPhone: "+998 90 260 88 88",
+                aboutTG: "@odilovabdulquddus",
+                aboutName: "AHMADBEK majmuasi",
+                searchPlaceholder: "Search...",
+                searchResults: "products found",
+                noResults: "No results found",
+                addedToCart: "added to cart",
+                removedFromCart: "removed from cart",
+                categories: {
+                    milliy: "UZBEK DISHES",
+                    burger: "BURGERS",
+                    fastfood: "FAST FOOD",
+                    kabob: "KABOBS",
+                    salat: "SALADS",
+                    gazak: "SNACKS",
+                    ichimlik: "DRINKS",
+                    shirinlik: "DESSERTS"
+                }
+            }
+        };
+
+        // Products array - BO'SH (faqat admin qo'shadi)
+        let products = [];
+
+        // Load products from localStorage
+        const savedProducts = localStorage.getItem('products');
+        if (savedProducts) {
+            products = JSON.parse(savedProducts);
+        } else {
+            // Hech qanday default mahsulot yo'q
+            products = [];
+            localStorage.setItem('products', JSON.stringify(products));
+        }
+
+        // Rooms data (15 xona)
+        let rooms = JSON.parse(localStorage.getItem('rooms')) || Array.from({ length: 15 }, (_, i) => ({
+            id: i + 1,
+            number: i + 1,
+            isBooked: false,
+            bookedBy: null,
+            startTime: null,
+            endTime: null,
+            phone: null
+        }));
+
+        // State variables
+        let currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
+        let users = JSON.parse(localStorage.getItem('users')) || [];
+        let currentLang = 'uz';
+        let cart = [];
+        let currentStep = 'cart';
+        let orders = JSON.parse(localStorage.getItem('orders')) || [];
+        let isAdminLoggedIn = false;
+        let currentCategory = 'all';
+        let searchQuery = '';
+        let adminSearchQuery = '';
+        let selectedRoomId = null;
+        const TELEGRAM_TOKEN = "8227938686:AAGYtIXGoLT2N3mOUdd_lsy-sF4lZnNSD44";
+        const TELEGRAM_CHAT_ID = "7000999171";
+
+        // O'zbekiston operatorlari
+        const UZBEK_OPERATORS = ['33', '88', '90', '91', '93', '94', '95', '97', '98', '99'];
+
+        // Telefon raqam validatsiyasi
+        function isValidUzbekPhone(phone) {
+            const cleanPhone = phone.replace(/\s/g, '');
+            if (!cleanPhone.startsWith('+998')) return false;
+            if (cleanPhone.length !== 13) return false;
+            const operatorCode = cleanPhone.substring(4, 6);
+            return UZBEK_OPERATORS.includes(operatorCode);
+        }
+
+        // Panel toggles
+        function toggleRoomsPanel() {
+            const panel = document.getElementById('roomsPanel');
+            panel.classList.toggle('active');
+            if (panel.classList.contains('active')) {
+                displayRooms();
+                document.getElementById('roomsBookingForm').style.display = 'none';
+            }
+        }
+
+        function toggleMyOrdersPanel() {
+            const panel = document.getElementById('myOrdersPanel');
+            panel.classList.toggle('active');
+            if (panel.classList.contains('active')) {
+                displayMyOrders();
+            }
+        }
+
+        function toggleAdminPanel() {
+            const panel = document.getElementById('adminPanel');
+            panel.classList.toggle('active');
+            if (currentUser && currentUser.isAdmin) {
+                document.getElementById('adminLogin').style.display = 'none';
+                document.getElementById('adminContent').style.display = 'block';
+                isAdminLoggedIn = true;
+                updateAdminStats();
+                displayOrders();
+                displayUsers();
+                displayRooms();
+                displayProductsForEdit();
+            } else if (!isAdminLoggedIn) {
+                document.getElementById('adminLogin').style.display = 'block';
+                document.getElementById('adminContent').style.display = 'none';
+            }
+        }
+
+        function togglePanel(id) {
+            const panel = document.getElementById(id);
+            panel.classList.toggle('active');
+            if (id === 'cartPanel' && currentStep === 'checkout') showCart();
+        }
+
+        function toggleAbout(show) {
+            document.getElementById('aboutModal').style.display = show ? 'flex' : 'none';
+        }
+
+        // Rooms functions - Xona tanlanganda TEPAGA SCROLL QILADI
+        function displayRooms() {
+            const grid = document.getElementById('roomsGrid');
+            const adminGrid = document.getElementById('adminRoomsGrid');
+            const bookedCount = rooms.filter(r => r.isBooked).length;
+            document.getElementById('roomsCount').innerText = `${bookedCount}/15`;
+            if (document.getElementById('totalRoomsStat')) {
+                document.getElementById('totalRoomsStat').innerText = `${bookedCount}/15`;
+            }
+
+            let html = '';
+            rooms.forEach(room => {
+                const status = room.isBooked ? 'booked' : 'available';
+                const statusText = room.isBooked ? 'Band' : 'Bo\'sh';
+                let timeInfo = '';
+                if (room.isBooked && room.startTime && room.endTime) {
+                    timeInfo = `<div class="room-time">${room.startTime} - ${room.endTime}</div>`;
+                }
+                html += `<div class="room-card ${status}" onclick="${!room.isBooked ? `showRoomBookingForm(${room.id})` : ''}">
+                        <div class="room-number">${room.number}</div>
+                        <div class="room-status ${status}">${statusText}</div>
+                        ${timeInfo}
+                    </div>`;
+            });
+            grid.innerHTML = html;
+
+            if (adminGrid) {
+                let adminHtml = '';
+                rooms.forEach(room => {
+                    const status = room.isBooked ? 'booked' : 'available';
+                    const statusText = room.isBooked ? 'Band' : 'Bo\'sh';
+                    let timeInfo = '';
+                    if (room.isBooked && room.startTime && room.endTime) {
+                        timeInfo = `<div class="room-time">${room.startTime} - ${room.endTime}</div>`;
+                    }
+                    adminHtml += `<div class="room-card ${status}">
+                            <div class="room-number">${room.number}</div>
+                            <div class="room-status ${status}">${statusText}</div>
+                            ${timeInfo}
+                            ${room.isBooked ? `<button class="delete-btn" style="margin-top:10px; padding:5px;" onclick="adminUnbookRoom(${room.id})">Bandni ochish</button>` : ''}
+                        </div>`;
+                });
+                adminGrid.innerHTML = adminHtml;
+            }
+        }
+
+        function showRoomBookingForm(roomId) {
+            if (!currentUser) {
+                alert("Xona band qilish uchun avval akkauntga kiring!");
+                toggleProfileDropdown();
+                return;
+            }
+            selectedRoomId = roomId;
+            document.getElementById('selectedRoomNumber').innerText = roomId;
+            document.getElementById('roomPhone').value = currentUser.phone || '+998 ';
+            document.getElementById('roomsBookingForm').style.display = 'block';
+
+            // TEPAGA SCROLL QILISH - forma ko'rinishi uchun
+            const roomsPanel = document.getElementById('roomsPanel');
+            roomsPanel.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        function bookRoom() {
+            if (!currentUser || !selectedRoomId) return;
+
+            const startTime = document.getElementById('roomStartTime').value;
+            const endTime = document.getElementById('roomEndTime').value;
+            const phone = document.getElementById('roomPhone').value.trim();
+
+            if (!startTime || !endTime) {
+                alert("Iltimos, vaqtni tanlang!");
+                return;
+            }
+            if (startTime >= endTime) {
+                alert("Tugash vaqti boshlanish vaqtidan keyin bo'lishi kerak!");
+                return;
+            }
+            if (!isValidUzbekPhone(phone)) {
+                alert("❌ Noto'g'ri telefon raqam!");
+                return;
+            }
+
+            const room = rooms.find(r => r.id === selectedRoomId);
+            if (room.isBooked) {
+                alert("Bu xona allaqachon band qilingan!");
+                return;
+            }
+
+            room.isBooked = true;
+            room.bookedBy = currentUser.id;
+            room.startTime = startTime;
+            room.endTime = endTime;
+            room.phone = phone;
+
+            localStorage.setItem('rooms', JSON.stringify(rooms));
+            displayRooms();
+            document.getElementById('roomsBookingForm').style.display = 'none';
+
+            // Telegram xabari
+            let msg = `🏨 <b>YANGI XONA BAND QILINDI</b>\n\n`;
+            msg += `🚪 <b>Xona:</b> ${selectedRoomId}\n`;
+            msg += `👤 <b>Ism:</b> ${currentUser.name}\n`;
+            msg += `📞 <b>Telefon:</b> ${phone}\n`;
+            msg += `⏰ <b>Vaqt:</b> ${startTime} - ${endTime}`;
+
+            fetch(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text: msg, parse_mode: 'HTML' })
+            }).catch(e => console.log(e));
+
+            alert(`✅ Xona ${selectedRoomId} muvaffaqiyatli band qilindi!`);
+        }
+
+        function adminUnbookRoom(roomId) {
+            const room = rooms.find(r => r.id === roomId);
+            if (room) {
+                room.isBooked = false;
+                room.bookedBy = null;
+                room.startTime = null;
+                room.endTime = null;
+                room.phone = null;
+                localStorage.setItem('rooms', JSON.stringify(rooms));
+                displayRooms();
+            }
+        }
+
+        // Auto-unbook rooms when time expires
+        setInterval(() => {
+            const now = new Date();
+            const currentTime = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+            let updated = false;
+
+            rooms.forEach(room => {
+                if (room.isBooked && room.endTime && room.endTime <= currentTime) {
+                    room.isBooked = false;
+                    room.bookedBy = null;
+                    room.startTime = null;
+                    room.endTime = null;
+                    room.phone = null;
+                    updated = true;
+                }
+            });
+
+            if (updated) {
+                localStorage.setItem('rooms', JSON.stringify(rooms));
+                displayRooms();
+            }
+        }, 60000);
+
+        // My Orders functions
+        function displayMyOrders() {
+            const list = document.getElementById('myOrdersList');
+            const loginRequired = document.getElementById('loginRequiredOrders');
+
+            if (!currentUser) {
+                loginRequired.style.display = 'block';
+                list.innerHTML = '';
+                return;
+            }
+
+            loginRequired.style.display = 'none';
+            const userOrders = orders.filter(o => o.userId === currentUser.id).reverse();
+            document.getElementById('myOrdersCount').innerText = userOrders.length;
+
+            if (userOrders.length === 0) {
+                list.innerHTML = '<div style="text-align: center; padding: 30px; color: var(--text-muted);">📭 Hozircha buyurtmalar yo\'q</div>';
+                return;
+            }
+
+            let html = '';
+            userOrders.forEach(order => {
+                html += `<div class="order-card">
+                        <div class="order-header">
+                            <span class="order-id">#${order.id.toString().slice(-6)}</span>
+                            <span class="order-status">${order.courier ? 'Kuryer' : 'Tayyor'}</span>
+                        </div>
+                        <div class="order-items">
+                            ${order.items.map(item => `${item.name} x${item.quantity}`).join(', ')}
+                        </div>
+                        <div style="margin-top: 8px; color: var(--primary); font-weight: 600;">
+                            Jami: ${order.total.toLocaleString()} so'm
+                        </div>
+                    </div>`;
+            });
+            list.innerHTML = html;
+        }
+            // Admin panel functions
+            function handleAdminKeyPress(event) {
+                if (event.key === 'Enter') checkAdminPassword();
+            }
+
+            function checkAdminPassword() {
+                const password = document.getElementById('adminPassword').value;
+                if (password === "00987") {
+                    isAdminLoggedIn = true;
+                    document.getElementById('adminLogin').style.display = 'none';
+                    document.getElementById('adminContent').style.display = 'block';
+                    updateAdminStats();
+                    displayOrders();
+                    displayUsers();
+                    displayRooms();
+                    displayProductsForEdit();
+                } else if (currentUser && currentUser.isAdmin) {
+                    isAdminLoggedIn = true;
+                    document.getElementById('adminLogin').style.display = 'none';
+                    document.getElementById('adminContent').style.display = 'block';
+                    updateAdminStats();
+                    displayOrders();
+                    displayUsers();
+                    displayRooms();
+                    displayProductsForEdit();
+                    document.getElementById('adminPassword').value = '';
+                } else {
+                    alert("❌ Noto'g'ri parol!");
+                }
+            }
+
+            function logoutAdmin() {
+                isAdminLoggedIn = false;
+                document.getElementById('adminLogin').style.display = 'block';
+                document.getElementById('adminContent').style.display = 'none';
+                document.getElementById('adminPassword').value = '';
+                toggleAdminPanel();
+            }
+
+            function switchAdminTab(tab, el) {
+                document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.admin-content').forEach(c => c.classList.remove('active'));
+                el.classList.add('active');
+                document.getElementById(tab).classList.add('active');
+
+                if (tab === 'orders') displayOrders();
+                if (tab === 'users') displayUsers();
+                if (tab === 'rooms') displayRooms();
+                if (tab === 'products') displayProductsForEdit();
+                if (tab === 'dashboard') updateAdminStats();
+            }
+
+            function updateAdminStats() {
+                document.getElementById('totalOrdersStat').innerText = orders.length;
+                const totalRevenue = orders.reduce((sum, o) => sum + o.total, 0);
+                document.getElementById('totalRevenueStat').innerText = totalRevenue.toLocaleString();
+                document.getElementById('totalProductsStat').innerText = products.length;
+                const bookedCount = rooms.filter(r => r.isBooked).length;
+                document.getElementById('totalRoomsStat').innerText = `${bookedCount}/15`;
+
+                const recent = orders.slice(-5).reverse();
+                let html = '<table class="orders-table"><tr><th>Vaqt</th><th>Mijoz</th><th>Jami</th><th>Amallar</th></tr>';
+                recent.forEach(o => {
+                    html += `<tr>
+                    <td>${o.time}</td>
+                    <td>${o.customer}</td>
+                    <td>${o.total.toLocaleString()} so'm</td>
+                    <td><button class="delete-order-btn" onclick="deleteOrder(${o.id})">🗑 O'chirish</button></td>
+                </tr>`;
+                });
+                html += '</table>';
+                document.getElementById('recentOrdersList').innerHTML = html;
+            }
+
+            function displayOrders() {
+                const list = document.getElementById('ordersList');
+                let html = '';
+                orders.slice().reverse().forEach(o => {
+                    const items = o.items.map(i => `${i.name} (${i.weight}) x${i.quantity}`).join('<br>');
+                    const deliveryType = o.courier ? '<span class="badge badge-courier">Kuryer</span>' : '<span class="badge badge-success">Olib ketish</span>';
+                    let status = '';
+                    const orderTime = new Date(o.time);
+                    const readyTime = new Date(orderTime.getTime() + 30 * 60000);
+                    const now = new Date();
+
+                    if (o.courier) {
+                        status = '<span class="badge badge-courier">Kuryerda</span>';
+                    } else if (now < readyTime) {
+                        status = '<span class="badge badge-warning">Tayyorlanmoqda</span>';
+                    } else {
+                        status = '<span class="badge badge-success">Tayyor</span>';
+                    }
+
+                    html += `<tr>
+                    <td>${o.time}</td>
+                    <td>${o.customer}</td>
+                    <td>${o.phone}</td>
+                    <td>${o.address}</td>
+                    <td class="order-items">${items}</td>
+                    <td>${deliveryType}</td>
+                    <td>${status}</td>
+                    <td>${o.total.toLocaleString()} so'm</td>
+                    <td><button class="delete-order-btn" onclick="deleteOrder(${o.id})">🗑 O'chirish</button></td>
+                </tr>`;
+                });
+                list.innerHTML = html;
+            }
+
+            function deleteOrder(orderId) {
+                if (confirm("Rostdan ham bu buyurtmani o'chirmoqchimisiz?")) {
+                    orders = orders.filter(o => o.id !== orderId);
+                    localStorage.setItem('orders', JSON.stringify(orders));
+                    if (document.getElementById('orders').classList.contains('active')) displayOrders();
+                    if (document.getElementById('dashboard').classList.contains('active')) updateAdminStats();
+                    if (document.getElementById('myOrdersPanel').classList.contains('active')) displayMyOrders();
+                    alert("✅ Buyurtma o'chirildi!");
+                }
+            }
+
+            // User management functions
+            function getAdminCount() {
+                return users.filter(u => u.isAdmin).length;
+            }
+
+            function displayUsers() {
+                const list = document.getElementById('usersList');
+                const adminCount = getAdminCount();
+                document.getElementById('adminCountDisplay').innerText = adminCount;
+
+                let html = '';
+                if (users.length === 0) {
+                    html = `<tr><td colspan="5" style="text-align: center; padding: 30px; color: var(--text-muted);">👥 Hozircha hech qanday foydalanuvchi yo'q</td></tr>`;
+                } else {
+                    users.forEach(u => {
+                        html += `<tr class="${u.blocked ? 'blocked' : ''}">
+                        <td>${u.name}</td>
+                        <td style="font-size:12px;">${u.phone}</td>
+                        <td>
+                            ${u.blocked ? '<span class="badge badge-danger">Bloklangan</span>' : u.isAdmin ? '<span class="badge badge-admin">⚜️ Admin</span>' : '<span class="badge badge-success">Faol</span>'}
+                        </td>
+                        <td>
+                            <input type="number" class="max-order-input" id="max-${u.id}" value="${u.maxOrder || 100}" min="1" max="1000">
+                            <button class="update-max-btn" onclick="updateMaxOrder(${u.id})">✓</button>
+                        </td>
+                        <td style="white-space:nowrap;">
+                            ${u.blocked ? `<button class="unblock-btn" onclick="toggleUserBlock(${u.id})">Ochish</button>` : `<button class="block-btn" onclick="toggleUserBlock(${u.id})">Bloklash</button>`}
+                            ${u.isAdmin ? `<button class="remove-admin-btn" onclick="toggleAdminRole(${u.id})">Admin olish</button>` : `<button class="make-admin-btn" onclick="toggleAdminRole(${u.id})">Admin qilish</button>`}
+                            <button class="delete-user-btn" onclick="deleteUser(${u.id})">🗑</button>
+                        </td>
+                    </tr>`;
+                    });
+                }
+                list.innerHTML = html;
+            }
+
+            function addNewUser() {
+                const name = document.getElementById('newUserName')?.value.trim();
+                const phone = document.getElementById('newUserPhone')?.value.trim();
+                const password = document.getElementById('newUserPassword')?.value.trim();
+                const maxOrder = parseInt(document.getElementById('newUserMaxOrder')?.value) || 100;
+                const isAdmin = document.getElementById('newUserIsAdmin')?.checked;
+
+                if (!name) { alert("❌ Ismni kiriting!"); return; }
+                if (!isValidUzbekPhone(phone)) {
+                    alert("❌ Noto'g'ri telefon raqam! Faqat O'zbekiston operatorlari: 33, 88, 90, 91, 93, 94, 95, 97, 98, 99");
+                    return;
+                }
+                if (!password || password.length < 4) { alert("❌ Parol kamida 4 ta belgi bo'lishi kerak!"); return; }
+                if (users.some(u => u.phone === phone)) { alert("❌ Bu telefon allaqachon ro'yxatda bor!"); return; }
+
+                if (isAdmin && getAdminCount() >= 5) {
+                    alert("❌ Maksimal 5 ta admin bo'lishi mumkin! Avval birini admin huquqidan mahrum qiling.");
+                    return;
+                }
+
+                const newUser = {
+                    id: Date.now(),
+                    name,
+                    phone,
+                    password,
+                    avatar: "https://via.placeholder.com/60",
+                    blocked: false,
+                    maxOrder,
+                    isAdmin,
+                    registered: new Date().toLocaleString('uz-UZ')
+                };
+                users.push(newUser);
+                localStorage.setItem('users', JSON.stringify(users));
+
+                document.getElementById('newUserName').value = '';
+                document.getElementById('newUserPhone').value = '+998 ';
+                document.getElementById('newUserPassword').value = '';
+                document.getElementById('newUserMaxOrder').value = '100';
+                document.getElementById('newUserIsAdmin').checked = false;
+
+                displayUsers();
+                alert(`✅ Foydalanuvchi qo'shildi: ${name}`);
+            }
+
+            function deleteUser(userId) {
+                const user = users.find(u => u.id === userId);
+                if (!user) return;
+                if (!confirm(`"${user.name}" ni o'chirmoqchimisiz?`)) return;
+                if (currentUser && currentUser.id === userId) {
+                    alert("Siz o'zingizni o'chira olmaysiz!"); return;
+                }
+                users = users.filter(u => u.id !== userId);
+                localStorage.setItem('users', JSON.stringify(users));
+                displayUsers();
+                alert("✅ Foydalanuvchi o'chirildi!");
+            }
+
+            function toggleUserBlock(userId) {
+                const user = users.find(u => u.id === userId);
+                if (user) {
+                    user.blocked = !user.blocked;
+                    localStorage.setItem('users', JSON.stringify(users));
+                    if (currentUser && currentUser.id === userId) {
+                        currentUser.blocked = user.blocked;
+                        localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                        updateLoginRequiredMessage();
+                        displayProducts(currentCategory);
+                    }
+                    displayUsers();
+                    alert(`Foydalanuvchi ${user.blocked ? 'bloklandi' : 'blokdan ochildi'}`);
+                }
+            }
+
+            function toggleAdminRole(userId) {
+                const user = users.find(u => u.id === userId);
+                if (!user) return;
+
+                if (!user.isAdmin) {
+                    if (getAdminCount() >= 5) {
+                        alert("❌ Maksimal 5 ta admin bo'lishi mumkin!");
+                        return;
+                    }
+                    if (!confirm(`"${user.name}" ga admin huquqi berilsinmi?`)) return;
+                    user.isAdmin = true;
+                    alert(`✅ ${user.name} admin qilindi!`);
+                } else {
+                    if (!confirm(`"${user.name}" dan admin huquqi olinsinmi?`)) return;
+                    user.isAdmin = false;
+                    alert(`✅ ${user.name} dan admin huquqi olindi!`);
+                }
+
+                localStorage.setItem('users', JSON.stringify(users));
+
+                if (currentUser && currentUser.id === userId) {
+                    currentUser.isAdmin = user.isAdmin;
+                    localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                    updateProfileDropdown();
+                    if (!user.isAdmin && document.getElementById('adminPanel').classList.contains('active')) {
+                        toggleAdminPanel();
+                    }
+                }
+                displayUsers();
+            }
+
+            function updateMaxOrder(userId) {
+                const input = document.getElementById(`max-${userId}`);
+                if (!input) return;
+                const value = parseInt(input.value);
+                if (isNaN(value) || value < 1) { alert("To'g'ri qiymat kiriting (1-1000)"); return; }
+                const user = users.find(u => u.id === userId);
+                if (user) {
+                    user.maxOrder = value;
+                    localStorage.setItem('users', JSON.stringify(users));
+                    if (currentUser && currentUser.id === userId) {
+                        currentUser.maxOrder = value;
+                        localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                    }
+                    alert(`Maksimal buyurtma miqdori ${value} ga o'zgartirildi`);
+                }
+            }
+
+            // Profile functions
+            function createProfileDropdown() {
+                const dropdown = document.getElementById('profileDropdown');
+                if (!dropdown) return;
+
+                dropdown.innerHTML = `
+                <div class="profile-dropdown-header">
+                    <span style="font-weight:700; color:var(--primary); font-size:15px;">👤 Profil</span>
+                    <button class="profile-dropdown-close" onclick="closeProfileDropdown()">✕</button>
+                </div>
+                <div id="profileNotLoggedIn">
+                    <div class="tab-buttons">
+                        <button class="tab-button active" onclick="switchAuthTab('login')">Kirish</button>
+                        <button class="tab-button" onclick="switchAuthTab('register')">Ro'yxatdan o'tish</button>
+                    </div>
+                    <div id="loginForm" class="form-tab active">
+                        <h4 style="color:var(--primary);margin-bottom:15px;">Tizimga kirish</h4>
+                        <div class="profile-field"><label>Telefon</label><input type="text" id="loginPhone" value="+998 " oninput="formatPhone(this)" placeholder="+998 90 123 45 67"></div>
+                        <div class="profile-field"><label>Parol</label><input type="password" id="loginPassword" placeholder="Parol"></div>
+                        <button class="save-profile-btn" onclick="loginUser()">Kirish</button>
+                    </div>
+                    <div id="registerForm" class="form-tab">
+                        <h4 style="color:var(--primary);margin-bottom:15px;">Ro'yxatdan o'tish</h4>
+                        <div class="profile-field"><label>Ism</label><input type="text" id="regName" placeholder="Ismingiz"></div>
+                        <div class="profile-field"><label>Telefon</label><input type="text" id="regPhone" value="+998 " oninput="formatPhone(this)" placeholder="+998 90 123 45 67"></div>
+                        <div class="profile-field"><label>Parol</label><input type="password" id="regPassword" placeholder="Parol"></div>
+                        <div class="profile-field"><label>Parolni takrorlang</label><input type="password" id="regConfirmPassword" placeholder="Parolni takrorlang"></div>
+                        <button class="save-profile-btn" onclick="registerUser()">Ro'yxatdan o'tish</button>
+                    </div>
+                </div>
+                <div id="profileLoggedIn" style="display:none;">
+                    <div class="profile-header">
+                        <div class="profile-avatar" onclick="changeProfilePicture()"><img id="profileAvatar" src="https://via.placeholder.com/60" alt="Avatar"></div>
+                        <div class="profile-info">
+                            <h4 id="profileFullName">Ism</h4>
+                            <p id="profilePhoneDisplay">+998 ** *** ** **</p>
+                            <p id="profileStatus" style="font-size:12px; margin-top:4px;"></p>
+                        </div>
+                    </div>
+                    <div class="profile-field"><label>Ism</label><input type="text" id="profileNameInput" value=""></div>
+                    <div class="profile-field"><label>Telefon</label><input type="text" id="profilePhoneInput" value="" readonly></div>
+                    <button class="save-profile-btn" onclick="updateProfile()">Saqlash</button>
+                    <button class="logout-btn" onclick="logoutUser()">Chiqish</button>
+                </div>
+            `;
+            }
+
+            function toggleProfileDropdown() {
+                const dropdown = document.getElementById('profileDropdown');
+                const overlay = document.getElementById('profileOverlay');
+                if (dropdown.classList.contains('active')) {
+                    closeProfileDropdown();
+                } else {
+                    dropdown.classList.add('active');
+                    overlay.classList.add('active');
+                    updateProfileDropdown();
+                }
+            }
+
+            function closeProfileDropdown() {
+                document.getElementById('profileDropdown').classList.remove('active');
+                document.getElementById('profileOverlay').classList.remove('active');
+            }
+
+            function switchAuthTab(tab) {
+                document.querySelectorAll('#profileDropdown .tab-button').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('#profileDropdown .form-tab').forEach(f => f.classList.remove('active'));
+                if (tab === 'login') {
+                    document.querySelectorAll('#profileDropdown .tab-button')[0].classList.add('active');
+                    document.getElementById('loginForm').classList.add('active');
+                } else {
+                    document.querySelectorAll('#profileDropdown .tab-button')[1].classList.add('active');
+                    document.getElementById('registerForm').classList.add('active');
+                }
+            }
+
+            function loginUser() {
+                const phone = document.getElementById('loginPhone').value.trim();
+                const password = document.getElementById('loginPassword').value.trim();
+
+                if (!isValidUzbekPhone(phone)) {
+                    alert("❌ Noto'g'ri telefon raqam! Faqat O'zbekiston operatorlari: 33, 88, 90, 91, 93, 94, 95, 97, 98, 99");
+                    return;
+                }
+                if (!password) { alert("Parolni kiriting!"); return; }
+
+                const user = users.find(u => u.phone === phone && u.password === password);
+                if (!user) { alert("Telefon raqam yoki parol noto'g'ri!"); return; }
+                if (user.blocked) { alert("Sizning akkauntingiz bloklangan! Iltimos, admin bilan bog'laning."); return; }
+
+                currentUser = user;
+                localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                updateProfileDropdown();
+                updateCheckoutForm();
+                displayProducts(currentCategory);
+                displayMyOrders();
+                closeProfileDropdown();
+                showNotification("✅ Tizimga kirdingiz", "Xush kelibsiz!", "success");
+            }
+
+            function registerUser() {
+                const name = document.getElementById('regName').value.trim();
+                const phone = document.getElementById('regPhone').value.trim();
+                const password = document.getElementById('regPassword').value.trim();
+                const confirmPassword = document.getElementById('regConfirmPassword').value.trim();
+
+                if (!name) { alert("Ismni kiriting!"); return; }
+                if (!isValidUzbekPhone(phone)) {
+                    alert("❌ Noto'g'ri telefon raqam! Faqat O'zbekiston operatorlari: 33, 88, 90, 91, 93, 94, 95, 97, 98, 99");
+                    return;
+                }
+                if (!password || password.length < 4) { alert("Parol kamida 4 belgidan iborat bo'lishi kerak!"); return; }
+                if (password !== confirmPassword) { alert("Parollar mos kelmadi!"); return; }
+                if (users.some(u => u.phone === phone)) { alert("Bu telefon raqam bilan avval ro'yxatdan o'tilgan!"); return; }
+
+                const newUser = {
+                    id: Date.now(),
+                    name,
+                    phone,
+                    password,
+                    avatar: "https://via.placeholder.com/60",
+                    blocked: false,
+                    maxOrder: 100,
+                    isAdmin: false,
+                    registered: new Date().toISOString()
+                };
+
+                users.push(newUser);
+                localStorage.setItem('users', JSON.stringify(users));
+                currentUser = newUser;
+                localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                updateProfileDropdown();
+                updateCheckoutForm();
+                displayProducts(currentCategory);
+                closeProfileDropdown();
+                showNotification("✅ Ro'yxatdan o'tdingiz", "Tabriklaymiz!", "success");
+            }
+
+            function updateProfileDropdown() {
+                if (!currentUser) {
+                    document.getElementById('profileNotLoggedIn').style.display = 'block';
+                    document.getElementById('profileLoggedIn').style.display = 'none';
+                    document.getElementById('profileIcon').innerHTML = '<i class="fas fa-user"></i>';
+                    return;
+                }
+
+                document.getElementById('profileNotLoggedIn').style.display = 'none';
+                document.getElementById('profileLoggedIn').style.display = 'block';
+
+                const userData = users.find(u => u.id === currentUser.id) || currentUser;
+                document.getElementById('profileFullName').innerText = userData.name;
+                document.getElementById('profilePhoneDisplay').innerText = userData.phone;
+                document.getElementById('profileNameInput').value = userData.name;
+                document.getElementById('profilePhoneInput').value = userData.phone;
+
+                const statusEl = document.getElementById('profileStatus');
+                let statusHtml = '';
+                if (userData.blocked) statusHtml = '<span class="badge badge-danger">Bloklangan</span>';
+                else if (userData.isAdmin) statusHtml = '<span class="badge badge-admin">⚜️ Admin</span>';
+                else statusHtml = `<span class="badge badge-success">Max: ${userData.maxOrder} ta</span>`;
+                statusEl.innerHTML = statusHtml;
+
+                if (userData.avatar) {
+                    document.getElementById('profileAvatar').src = userData.avatar;
+                    document.getElementById('profileIcon').innerHTML = `<img src="${userData.avatar}" alt="Avatar" style="width:100%;height:100%;object-fit:cover;">`;
+                } else {
+                    document.getElementById('profileIcon').innerHTML = '<i class="fas fa-user"></i>';
+                }
+
+                updateLoginRequiredMessage();
+            }
+
+            function logoutUser() {
+                currentUser = null;
+                localStorage.removeItem('currentUser');
+                products.forEach(p => p.quantity = 0);
+                cart = [];
+                updateCart();
+                updateProfileDropdown();
+                displayProducts(currentCategory);
+                displayMyOrders();
+                closeProfileDropdown();
+                updateLoginRequiredMessage();
+                document.getElementById('nameInput').value = '';
+                document.getElementById('phoneInput').value = '+998 ';
+                if (document.getElementById('cartPanel').classList.contains('active')) {
+                    togglePanel('cartPanel');
+                }
+                showNotification("✅ Tizimdan chiqdingiz", "Xayr!", "success");
+            }
+
+            function changeProfilePicture() {
+                if (!currentUser) return;
+                const url = prompt("Rasm URL manzilini kiriting:", currentUser.avatar || "https://i.pinimg.com/736x/57/8a/10/578a1037f99f4989c434c8a20d22d37b.jpg");
+                if (url) {
+                    currentUser.avatar = url;
+                    const idx = users.findIndex(u => u.id === currentUser.id);
+                    if (idx !== -1) { users[idx].avatar = url; localStorage.setItem('users', JSON.stringify(users)); }
+                    localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                    updateProfileDropdown();
+                }
+            }
+
+            function updateProfile() {
+                if (!currentUser) return;
+                const name = document.getElementById('profileNameInput').value.trim();
+                if (!name) { alert("Ismni kiriting!"); return; }
+                currentUser.name = name;
+                const idx = users.findIndex(u => u.id === currentUser.id);
+                if (idx !== -1) { users[idx].name = name; localStorage.setItem('users', JSON.stringify(users)); }
+                localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                updateProfileDropdown();
+                alert("✅ Profil ma'lumotlari saqlandi!");
+            }
+
+            // Helper functions
+            function formatPhone(input) {
+                let value = input.value.replace(/\D/g, '');
+                if (value.length === 0) { input.value = '+998 '; return; }
+                if (!value.startsWith('998')) value = '998' + value;
+                if (value.length > 12) value = value.slice(0, 12);
+                let formatted = '+998 ';
+                if (value.length > 3) {
+                    formatted += value.slice(3, 5);
+                    if (value.length > 5) {
+                        formatted += ' ' + value.slice(5, 8);
+                        if (value.length > 8) {
+                            formatted += ' ' + value.slice(8, 10);
+                            if (value.length > 10) formatted += ' ' + value.slice(10, 12);
+                        }
+                    }
+                }
+                input.value = formatted;
+            }
+
+            function updateCheckoutForm() {
+                if (currentUser) {
+                    document.getElementById('nameInput').value = currentUser.name || '';
+                    document.getElementById('phoneInput').value = currentUser.phone || '+998 ';
+                } else {
+                    document.getElementById('nameInput').value = '';
+                    document.getElementById('phoneInput').value = '+998 ';
+                }
+
+                // Manzilga "Namangan," qo'shish
+                const addressInput = document.getElementById('addressInput');
+                if (!addressInput.value.startsWith('Namangan,')) {
+                    addressInput.value = 'Namangan, ';
+                }
+            }
+
+            function updateLoginRequiredMessage() {
+                const messageDiv = document.getElementById('loginRequiredMessage');
+                const checkoutBtn = document.getElementById('checkoutBtn');
+
+                if (!currentUser) {
+                    messageDiv.style.display = 'block';
+                    checkoutBtn.disabled = true;
+                } else {
+                    const userData = users.find(u => u.id === currentUser.id);
+                    if (userData && userData.blocked) {
+                        messageDiv.style.display = 'block';
+                        messageDiv.innerHTML = '<p>🔒 Sizning akkauntingiz bloklangan! Admin bilan bog\'laning.</p>';
+                        checkoutBtn.disabled = true;
+                    } else {
+                        messageDiv.style.display = 'none';
+                        checkoutBtn.disabled = false;
+                    }
+                }
+            }
+
+            // Product display functions
+            function searchProducts() {
+                const searchInput = document.getElementById('searchInput');
+                searchQuery = searchInput.value.toLowerCase().trim();
+                document.getElementById('clearSearch').style.display = searchQuery.length > 0 ? 'block' : 'none';
+                document.getElementById('searchStats').style.display = searchQuery.length > 0 ? 'block' : 'none';
+                displayProducts(currentCategory);
+            }
+
+            function clearSearch() {
+                document.getElementById('searchInput').value = '';
+                searchQuery = '';
+                document.getElementById('clearSearch').style.display = 'none';
+                document.getElementById('searchStats').style.display = 'none';
+                displayProducts(currentCategory);
+            }
+
+            function displayProducts(category = 'all') {
+                currentCategory = category;
+                const grid = document.getElementById('menuGrid');
+                grid.innerHTML = '';
+
+                const categories = ['milliy', 'burger', 'fastfood', 'kabob', 'salat', 'gazak', 'ichimlik', 'shirinlik'];
+
+                if (searchQuery.length > 0) {
+                    let filtered = products.filter(p => (p.name.uz || p.name).toLowerCase().includes(searchQuery));
+                    document.getElementById('searchResultCount').innerText = filtered.length;
+
+                    if (filtered.length === 0) {
+                        grid.innerHTML = `<div class="no-results">🔍 ${langData[currentLang].noResults}</div>`;
+                        return;
+                    }
+
+                    const categoryNames = {
+                        milliy: langData[currentLang].categories.milliy,
+                        burger: langData[currentLang].categories.burger,
+                        fastfood: langData[currentLang].categories.fastfood,
+                        kabob: langData[currentLang].categories.kabob,
+                        salat: langData[currentLang].categories.salat,
+                        gazak: langData[currentLang].categories.gazak,
+                        ichimlik: langData[currentLang].categories.ichimlik,
+                        shirinlik: langData[currentLang].categories.shirinlik
+                    };
+
+                    const categoryIcons = {
+                        milliy: '🍲',
+                        burger: '🍔',
+                        fastfood: '🍟',
+                        kabob: '🍢',
+                        salat: '🥗',
+                        gazak: '🥨',
+                        ichimlik: '🥤',
+                        shirinlik: '🍰'
+                    };
+
+                    categories.forEach(cat => {
+                        const catProducts = filtered.filter(p => p.cat === cat);
+                        if (catProducts.length > 0) {
+                            let catHtml = `<div class="category-section">`;
+                            catHtml += `<h2 class="category-title">${categoryIcons[cat]} ${categoryNames[cat]}</h2>`;
+                            catHtml += `<div class="category-products">`;
+
+                            catProducts.forEach(p => {
+                                const currentName = p.name.uz || p.name;
+                                let displayName = currentName;
+                                const regex = new RegExp(`(${searchQuery})`, 'gi');
+                                displayName = currentName.replace(regex, '<span class="highlight">$1</span>');
+
+                                catHtml += `<div class="card" id="card-${p.id}">
+                                <button class="goto-btn" onclick="goToProduct('${p.id}')" title="Mahsulotga o'tish"><i class="fas fa-arrow-right"></i></button>
+                                <img src="${p.img}" onerror="this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400'">
+                                <h3>${displayName}</h3>
+                                <div class="product-weight">${p.weight}</div>
+                                <div class="price">${p.price.toLocaleString()} ${langData[currentLang].currency}</div>
+                                <div class="quantity-controls">
+                                    <button class="qty-btn minus" onclick="decreaseQuantity('${p.id}')">−</button>
+                                    <span class="qty-value" id="qty-${p.id}">${p.quantity}</span>
+                                    <button class="qty-btn plus" onclick="increaseQuantity('${p.id}')">+</button>
+                                </div>
+                            </div>`;
+                            });
+
+                            catHtml += `</div></div>`;
+                            grid.innerHTML += catHtml;
+                        }
+                    });
+                    return;
+                }
+
+                if (category !== 'all') {
+                    const catProducts = products.filter(p => p.cat === category);
+                    const catIcons = {
+                        milliy: '🍲',
+                        burger: '🍔',
+                        fastfood: '🍟',
+                        kabob: '🍢',
+                        salat: '🥗',
+                        gazak: '🥨',
+                        ichimlik: '🥤',
+                        shirinlik: '🍰'
+                    };
+
+                    let catHtml = `<div class="category-section">`;
+                    catHtml += `<h2 class="category-title">${catIcons[category]} ${langData[currentLang].categories[category]}</h2>`;
+                    catHtml += `<div class="category-products">`;
+
+                    catProducts.forEach(p => {
+                        const currentName = p.name.uz || p.name;
+                        catHtml += `<div class="card" id="card-${p.id}">
+                        <button class="goto-btn" onclick="goToProduct('${p.id}')" title="Mahsulotga o'tish"><i class="fas fa-arrow-right"></i></button>
+                        <img src="${p.img}" onerror="this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400'">
+                        <h3>${currentName}</h3>
+                        <div class="product-weight">${p.weight}</div>
+                        <div class="price">${p.price.toLocaleString()} ${langData[currentLang].currency}</div>
+                        <div class="quantity-controls">
+                            <button class="qty-btn minus" onclick="decreaseQuantity('${p.id}')">−</button>
+                            <span class="qty-value" id="qty-${p.id}">${p.quantity}</span>
+                            <button class="qty-btn plus" onclick="increaseQuantity('${p.id}')">+</button>
+                        </div>
+                    </div>`;
+                    });
+
+                    catHtml += `</div></div>`;
+                    grid.innerHTML = catHtml;
+                    return;
+                }
+
+                const categoryNames = {
+                    milliy: langData[currentLang].categories.milliy,
+                    burger: langData[currentLang].categories.burger,
+                    fastfood: langData[currentLang].categories.fastfood,
+                    kabob: langData[currentLang].categories.kabob,
+                    salat: langData[currentLang].categories.salat,
+                    gazak: langData[currentLang].categories.gazak,
+                    ichimlik: langData[currentLang].categories.ichimlik,
+                    shirinlik: langData[currentLang].categories.shirinlik
+                };
+
+                const categoryIcons = {
+                    milliy: '🍲',
+                    burger: '🍔',
+                    fastfood: '🍟',
+                    kabob: '🍢',
+                    salat: '🥗',
+                    gazak: '🥨',
+                    ichimlik: '🥤',
+                    shirinlik: '🍰'
+                };
+
+                categories.forEach(cat => {
+                    const catProducts = products.filter(p => p.cat === cat);
+                    if (catProducts.length > 0) {
+                        let catHtml = `<div class="category-section">`;
+                        catHtml += `<h2 class="category-title">${categoryIcons[cat]} ${categoryNames[cat]}</h2>`;
+                        catHtml += `<div class="category-products">`;
+
+                        catProducts.forEach(p => {
+                            const currentName = p.name.uz || p.name;
+                            catHtml += `<div class="card" id="card-${p.id}">
+                            <button class="goto-btn" onclick="goToProduct('${p.id}')" title="Mahsulotga o'tish"><i class="fas fa-arrow-right"></i></button>
+                            <img src="${p.img}" onerror="this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400'">
+                            <h3>${currentName}</h3>
+                            <div class="product-weight">${p.weight}</div>
+                            <div class="price">${p.price.toLocaleString()} ${langData[currentLang].currency}</div>
+                            <div class="quantity-controls">
+                                <button class="qty-btn minus" onclick="decreaseQuantity('${p.id}')">−</button>
+                                <span class="qty-value" id="qty-${p.id}">${p.quantity}</span>
+                                <button class="qty-btn plus" onclick="increaseQuantity('${p.id}')">+</button>
+                            </div>
+                        </div>`;
+                        });
+
+                        catHtml += `</div></div>`;
+                        grid.innerHTML += catHtml;
+                    }
+                });
+            }
+
+            function increaseQuantity(productId) {
+                if (!currentUser) {
+                    alert("Buyurtma berish uchun avval akkauntga kiring!");
+                    toggleProfileDropdown();
+                    return;
+                }
+                const userData = users.find(u => u.id === currentUser.id);
+                if (userData && userData.blocked) {
+                    alert("Sizning akkauntingiz bloklangan!");
+                    return;
+                }
+
+                const product = products.find(p => p.id === productId);
+                if (product) {
+                    const currentTotal = cart.reduce((sum, item) => sum + item.quantity, 0);
+                    const maxOrder = userData?.maxOrder || 100;
+                    if (currentTotal >= maxOrder) {
+                        const w = document.getElementById('maxWarning');
+                        w.style.display = 'block';
+                        w.innerHTML = `⚠️ Maksimal ${maxOrder} ta mahsulot buyurtma qilishingiz mumkin!`;
+                        setTimeout(() => w.style.display = 'none', 3000);
+                        return;
+                    }
+                    product.quantity++;
+                    document.getElementById(`qty-${productId}`).textContent = product.quantity;
+
+                    const cartItem = cart.find(item => item.id === productId);
+                    if (cartItem) {
+                        cartItem.quantity = product.quantity;
+                    } else {
+                        cart.push({
+                            id: product.id,
+                            name: product.name,
+                            price: product.price,
+                            weight: product.weight,
+                            quantity: product.quantity
+                        });
+                    }
+                    updateCart();
+
+                    const productName = product.name.uz || product.name;
+                    showNotification(
+                        "✅ Mahsulot qo'shildi",
+                        `${productName} ${langData[currentLang].addedToCart}`,
+                        'success',
+                        productId
+                    );
+                }
+            }
+
+            function decreaseQuantity(productId) {
+                const product = products.find(p => p.id === productId);
+                if (product && product.quantity > 0) {
+                    const oldQuantity = product.quantity;
+                    product.quantity--;
+                    document.getElementById(`qty-${productId}`).textContent = product.quantity;
+
+                    const cartIndex = cart.findIndex(item => item.id === productId);
+                    if (cartIndex !== -1) {
+                        if (product.quantity === 0) {
+                            cart.splice(cartIndex, 1);
+                        } else {
+                            cart[cartIndex].quantity = product.quantity;
+                        }
+                    }
+                    updateCart();
+
+                    if (oldQuantity > 0 && product.quantity === 0) {
+                        const productName = product.name.uz || product.name;
+                        showNotification(
+                            "❌ Mahsulot olib tashlandi",
+                            `${productName} ${langData[currentLang].removedFromCart}`,
+                            'danger',
+                            productId
+                        );
+                    }
+                }
+            }
+
+            function updateCart() {
+                const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+                document.getElementById('cartCount').innerText = totalItems;
+
+                const mobileCartBadge = document.getElementById('mobileCartBadge');
+                if (mobileCartBadge) {
+                    mobileCartBadge.innerText = totalItems;
+                }
+
+                if (currentUser) {
+                    const userData = users.find(u => u.id === currentUser.id);
+                    const w = document.getElementById('maxWarning');
+                    if (userData && totalItems >= userData.maxOrder) {
+                        w.style.display = 'block';
+                        w.innerHTML = `⚠️ Maksimal ${userData.maxOrder} ta mahsulot!`;
+                    } else {
+                        w.style.display = 'none';
+                    }
+                }
+
+                const list = document.getElementById('cartList');
+                list.innerHTML = '';
+                let total = 0;
+                cart.forEach(item => {
+                    const itemTotal = item.price * item.quantity;
+                    total += itemTotal;
+                    const currentName = item.name.uz || item.name;
+                    list.innerHTML += `<div style="display:flex;justify-content:space-between;margin-bottom:15px;padding-bottom:10px;border-bottom:1px solid rgba(74,144,226,0.2);">
+                    <div style="flex:2"><div><b>${currentName}</b></div><div style="font-size:12px;color:var(--text-muted);">${item.weight} | ${item.price.toLocaleString()} so'm</div></div>
+                    <div style="flex:1;text-align:right;">
+                        <div style="display:flex;align-items:center;gap:5px;justify-content:flex-end;">
+                            <button class="nav-btn" style="padding:5px 10px;" onclick="decreaseQuantity('${item.id}')">−</button>
+                            <input type="number" class="quantity-input" value="${item.quantity}" min="0" onchange="setQuantity('${item.id}',this)" style="width:50px;">
+                            <button class="nav-btn" style="padding:5px 10px;background:var(--primary);color:#0f0b07;" onclick="increaseQuantity('${item.id}')">+</button>
+                        </div>
+                        <div style="margin-top:5px;"><b style="color:var(--primary);">${itemTotal.toLocaleString()} so'm</b></div>
+                    </div>
+                </div>`;
+                });
+
+                const courierChecked = document.getElementById('courierDelivery')?.checked || false;
+                if (courierChecked && cart.length > 0) {
+                    list.innerHTML += `<div style="display:flex;justify-content:space-between;margin-top:10px;padding-top:10px;border-top:2px dashed var(--courier); color: var(--courier); font-weight: 600;">
+                    <span>🚚 Kuryer xizmati</span>
+                    <span>+${COURIER_PRICE.toLocaleString()} so'm</span>
+                </div>`;
+                    total += COURIER_PRICE;
+                }
+
+                document.getElementById('totalPrice').innerText = total.toLocaleString();
+            }
+
+            function setQuantity(productId, input) {
+                if (!currentUser) { alert("Avval kiring!"); toggleProfileDropdown(); return; }
+                const userData = users.find(u => u.id === currentUser.id);
+                let value = parseInt(input.value);
+                const product = products.find(p => p.id === productId);
+                if (isNaN(value) || value < 0) value = 0;
+                const maxOrder = userData?.maxOrder || 100;
+                if (value > maxOrder) value = maxOrder;
+
+                const currentTotal = cart.reduce((sum, item) => {
+                    if (item.id === productId) return sum + value;
+                    return sum + item.quantity;
+                }, 0);
+
+                if (currentTotal > maxOrder) {
+                    alert(`Maksimal ${maxOrder} ta mahsulot!`);
+                    input.value = product.quantity;
+                    return;
+                }
+
+                const oldQuantity = product.quantity;
+                product.quantity = value;
+                document.getElementById(`qty-${productId}`).textContent = value;
+
+                if (value > 0) {
+                    const cartItem = cart.find(item => item.id === productId);
+                    if (cartItem) {
+                        cartItem.quantity = value;
+                    } else {
+                        cart.push({
+                            id: product.id,
+                            name: product.name,
+                            price: product.price,
+                            weight: product.weight,
+                            quantity: value
+                        });
+                    }
+                } else {
+                    const idx = cart.findIndex(item => item.id === productId);
+                    if (idx !== -1) cart.splice(idx, 1);
+                }
+                updateCart();
+
+                const productName = product.name.uz || product.name;
+                if (oldQuantity === 0 && value > 0) {
+                    showNotification(
+                        "✅ Mahsulot qo'shildi",
+                        `${productName} ${langData[currentLang].addedToCart}`,
+                        'success',
+                        productId
+                    );
+                } else if (oldQuantity > 0 && value === 0) {
+                    showNotification(
+                        "❌ Mahsulot olib tashlandi",
+                        `${productName} ${langData[currentLang].removedFromCart}`,
+                        'danger',
+                        productId
+                    );
+                }
+            }
+
+            // Checkout functions - Telegram botga yuborish
+            function showCheckout() {
+                if (!currentUser) { alert("Buyurtma berish uchun avval akkauntga kiring!"); toggleProfileDropdown(); return; }
+                const userData = users.find(u => u.id === currentUser.id);
+                if (userData && userData.blocked) { alert("Sizning akkauntingiz bloklangan!"); return; }
+                if (cart.length === 0) { alert("Savatchangiz bo'sh!"); return; }
+
+                currentStep = 'checkout';
+                document.getElementById('cartView').style.display = 'none';
+                document.getElementById('checkoutView').style.display = 'block';
+                document.getElementById('step1').classList.remove('active');
+                document.getElementById('step2').classList.add('active');
+
+                // Checkout formani yangilash
+                updateCheckoutForm();
+
+                // Manzilni tekshirish
+                validateAddress();
+            }
+
+            function showCart() {
+                currentStep = 'cart';
+                document.getElementById('cartView').style.display = 'block';
+                document.getElementById('checkoutView').style.display = 'none';
+                document.getElementById('step1').classList.add('active');
+                document.getElementById('step2').classList.remove('active');
+            }
+
+            function updateCheckoutSummary() {
+                const summary = document.getElementById('checkoutSummary');
+                let html = '', total = 0;
+                cart.forEach(item => {
+                    const itemTotal = item.price * item.quantity;
+                    total += itemTotal;
+                    const n = item.name.uz || item.name;
+                    html += `<div class="summary-item"><span>${n} x${item.quantity} (${item.weight})</span><span>${itemTotal.toLocaleString()} ${langData[currentLang].currency}</span></div>`;
+                });
+
+                const courierChecked = document.getElementById('courierDelivery')?.checked || false;
+                if (courierChecked && cart.length > 0) {
+                    html += `<div class="summary-item" style="color: var(--courier);">
+                    <span>🚚 Kuryer xizmati</span>
+                    <span>+${COURIER_PRICE.toLocaleString()} ${langData[currentLang].currency}</span>
+                </div>`;
+                    total += COURIER_PRICE;
+                }
+
+                html += `<div class="summary-total"><span>JAMI:</span><span>${total.toLocaleString()} ${langData[currentLang].currency}</span></div>`;
+                summary.innerHTML = html;
+            }
+
+            function validateOrder() {
+                const name = document.getElementById('nameInput').value.trim();
+                const phone = document.getElementById('phoneInput').value.trim();
+                const address = document.getElementById('addressInput').value.trim();
+                let isValid = true;
+
+                const nameError = document.getElementById('nameError');
+                const phoneError = document.getElementById('phoneError');
+                const addressError = document.getElementById('addressError');
+
+                if (name) nameError.style.display = 'none'; else { nameError.style.display = 'block'; isValid = false; }
+
+                // Telefon raqamni tekshirish
+                const cleanPhone = phone.replace(/\s/g, '');
+                if (cleanPhone.startsWith('+998') && cleanPhone.length === 13) {
+                    const operatorCode = cleanPhone.substring(4, 6);
+                    if (UZBEK_OPERATORS.includes(operatorCode)) {
+                        phoneError.style.display = 'none';
+                    } else {
+                        phoneError.style.display = 'block';
+                        phoneError.innerText = "Noto'g'ri operator kodi";
+                        isValid = false;
+                    }
+                } else {
+                    phoneError.style.display = 'block';
+                    phoneError.innerText = "Telefon raqam 13 belgidan iborat bo'lishi kerak (+998 XX XXX XX XX)";
+                    isValid = false;
+                }
+
+                // Manzilni tekshirish (Namangan, qismi saqlanishi kerak)
+                if (address && address.length > 9) {
+                    addressError.style.display = 'none';
+                } else {
+                    addressError.style.display = 'block';
+                    addressError.innerText = "Iltimos, to'liq manzilingizni kiriting";
+                    isValid = false;
+                }
+
+                return isValid;
+            }
+
+            function submitOrder() {
+                if (!currentUser) { alert("Avval kiring!"); return; }
+                const userData = users.find(u => u.id === currentUser.id);
+                if (userData && userData.blocked) { alert("Akkauntingiz bloklangan!"); return; }
+                if (!validateOrder()) { alert("❌ Barcha majburiy maydonlarni to'ldiring!"); return; }
+
+                const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+                const maxOrder = userData?.maxOrder || 100;
+                if (totalItems > maxOrder) { alert(`❌ Maksimal ${maxOrder} ta mahsulot!`); return; }
+
+                const name = document.getElementById('nameInput').value.trim();
+                const phone = document.getElementById('phoneInput').value.trim();
+                const address = document.getElementById('addressInput').value.trim();
+                const note = document.getElementById('noteInput').value.trim();
+                const promo = document.getElementById('promoInput').value.trim();
+                const courier = document.getElementById('courierDelivery').checked;
+
+                let total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                let discount = 0;
+                const promoMessage = document.getElementById('promoMessage');
+
+                if (promo.toLowerCase() === 'fazo50') {
+                    discount = total * 0.5;
+                    total = total * 0.5;
+                    promoMessage.innerText = '✅ 50% chegirma!';
+                } else if (promo.toLowerCase() === 'fazo20') {
+                    discount = total * 0.2;
+                    total = total * 0.8;
+                    promoMessage.innerText = '✅ 20% chegirma!';
+                } else if (promo) {
+                    promoMessage.innerText = '❌ Noto\'g\'ri promokod';
+                }
+
+                let courierFee = 0;
+                if (courier) {
+                    courierFee = COURIER_PRICE;
+                    total += COURIER_PRICE;
+                }
+
+                const order = {
+                    id: Date.now(),
+                    time: new Date().toLocaleString('uz-UZ'),
+                    customer: name,
+                    phone,
+                    address,
+                    note: note || 'Yo\'q',
+                    userId: currentUser.id,
+                    courier: courier,
+                    courierFee: courierFee,
+                    items: cart.map(item => ({
+                        name: item.name.uz || item.name,
+                        weight: item.weight,
+                        quantity: item.quantity,
+                        price: item.price,
+                        total: item.price * item.quantity
+                    })),
+                    total: Math.round(total)
+                };
+
+                orders.push(order);
+                localStorage.setItem('orders', JSON.stringify(orders));
+
+                // TELEGRAM BOTGA YUBORISH
+                let msg = "🛍 <b>YANGI BUYURTMA</b>\n\n";
+                msg += `👤 <b>Ism:</b> ${name}\n`;
+                msg += `📞 <b>Telefon:</b> ${phone}\n`;
+                msg += `📍 <b>Manzil:</b> ${address}\n`;
+                msg += `🚚 <b>Yetkazish:</b> ${courier ? `Kuryer orqali (+${COURIER_PRICE.toLocaleString()} so'm)` : 'Olib ketish'}\n`;
+                if (note) msg += `📝 <b>Eslatma:</b> ${note}\n`;
+                if (discount > 0) msg += `💰 <b>Chegirma:</b> ${discount.toLocaleString()} so'm\n`;
+                msg += `\n📦 <b>Buyurtmalar:</b>\n`;
+                cart.forEach(item => {
+                    const n = item.name.uz || item.name;
+                    msg += `   • ${n} (${item.weight}) x${item.quantity} = ${(item.price * item.quantity).toLocaleString()} so'm\n`;
+                });
+                if (courier) {
+                    msg += `   • 🚚 Kuryer xizmati = ${COURIER_PRICE.toLocaleString()} so'm\n`;
+                }
+                msg += `\n💵 <b>JAMI:</b> ${Math.round(total).toLocaleString()} so'm\n`;
+                msg += `⏰ <b>Vaqt:</b> ${order.time}`;
+
+                // Telegram API ga so'rov yuborish
+                fetch(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        chat_id: TELEGRAM_CHAT_ID,
+                        text: msg,
+                        parse_mode: 'HTML'
+                    })
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.ok) {
+                            console.log("✅ Telegramga yuborildi");
+                        } else {
+                            console.error("❌ Telegram xatosi:", data);
+                        }
+                    })
+                    .catch(error => {
+                        console.error("❌ Tarmoq xatosi:", error);
+                    });
+
+                alert("✅ Buyurtmangiz qabul qilindi! Tez orada operator siz bilan bog'lanadi.");
+
+                products.forEach(p => p.quantity = 0);
+                cart = [];
+                updateCart();
+
+                document.getElementById('addressInput').value = 'Namangan, ';
+                document.getElementById('noteInput').value = '';
+                document.getElementById('promoInput').value = '';
+                document.getElementById('promoMessage').innerText = '';
+                document.getElementById('courierDelivery').checked = false;
+
+                showCart();
+                togglePanel('cartPanel');
+                displayProducts(currentCategory);
+                displayMyOrders();
+                if (isAdminLoggedIn) updateAdminStats();
+            }
+
+            // Language and UI functions
+            function changeLang(lang) {
+                currentLang = lang;
+                const d = langData[lang];
+
+                document.getElementById('navAbout').innerText = d.navAbout;
+                document.getElementById('navAdmin').innerText = d.navAdmin;
+                document.getElementById('badgeText').innerText = d.badgeText;
+                document.getElementById('heroTitle').innerHTML = d.heroTitle;
+                document.getElementById('heroDesc').innerText = d.heroDesc;
+                document.getElementById('ctaBtn').innerText = d.ctaBtn;
+                document.getElementById('stat1').innerText = d.stat1;
+                document.getElementById('stat2').innerText = d.stat2;
+                document.getElementById('stat3').innerText = d.stat3;
+                document.getElementById('cartTitle').innerText = d.cartTitle;
+                document.getElementById('totalLabel').innerText = d.totalLabel;
+                document.querySelectorAll('.currency').forEach(el => el.innerText = d.currency);
+                document.getElementById('aboutTitle').innerText = d.aboutTitle;
+                document.getElementById('aboutText1').innerText = d.aboutText1;
+                document.getElementById('aboutLocation').innerText = d.aboutLocation;
+                document.getElementById('aboutPhone').innerText = d.aboutPhone;
+                document.getElementById('aboutTG').innerText = d.aboutTG;
+                document.getElementById('aboutName').innerText = d.aboutName;
+                document.getElementById('searchResultText').innerText = ` ${d.searchResults}`;
+
+                updateSearchPlaceholder();
+
+                const cats = ['all', 'milliy', 'burger', 'fastfood', 'kabob', 'salat', 'gazak', 'ichimlik', 'shirinlik'];
+                const catNames = {
+                    all: d.all,
+                    milliy: d.milliy,
+                    burger: d.burger,
+                    fastfood: d.fastfood,
+                    kabob: d.kabob,
+                    salat: d.salat,
+                    gazak: d.gazak,
+                    ichimlik: d.ichimlik,
+                    shirinlik: d.shirinlik
+                };
+
+                const filterBar = document.getElementById('filterBar');
+                filterBar.innerHTML = cats.map(c =>
+                    `<button class="filter-btn ${c === currentCategory ? 'active' : ''}" onclick="filterMenu('${c}',this)">${catNames[c]}</button>`
+                ).join('');
+
+                displayProducts(currentCategory);
+            }
+
+            function filterMenu(cat, btn) {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                displayProducts(cat);
+            }
+
+            window.onscroll = function () {
+                const btn = document.getElementById('scrollToTop');
+                if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+                    btn.classList.add('show');
+                } else {
+                    btn.classList.remove('show');
+                }
+            };
+
+            function scrollToTop() {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            function updateSearchPlaceholder() {
+                document.getElementById('searchInput').placeholder = langData[currentLang].searchPlaceholder;
+            }
+
+            // Admin product functions
+            function displayProductsForEdit() {
+                const grid = document.getElementById('productsGrid');
+                grid.innerHTML = '';
+
+                let filtered = products;
+                if (adminSearchQuery.length > 0) {
+                    filtered = products.filter(p => (p.name.uz || p.name).toLowerCase().includes(adminSearchQuery));
+                }
+
+                document.getElementById('adminSearchCount').innerText = filtered.length;
+
+                if (filtered.length === 0 && adminSearchQuery.length > 0) {
+                    grid.innerHTML = `<div class="no-results">🔍 Hech narsa topilmadi</div>`;
+                    return;
+                }
+
+                filtered.forEach(p => {
+                    const productName = p.name.uz || p.name || 'Noma\'lum';
+
+                    grid.innerHTML += `
+                    <div class="product-edit-card">
+                        <img src="${p.img}" onclick="changeProductImage('${p.id}')" title="Rasmni o'zgartirish (ustiga bosing)">
+                        <div style="margin-bottom:10px;"><span class="product-weight-badge">⚖️ ${p.weight}</span><span class="product-category-badge">${p.cat}</span></div>
+                        <input type="text" value="${productName}" id="name-${p.id}" placeholder="Nomi">
+                        <input type="text" value="${p.weight}" id="weight-${p.id}" placeholder="Miqdori">
+                        <select id="cat-${p.id}">
+                            <option value="milliy" ${p.cat === 'milliy' ? 'selected' : ''}>O'zbek</option>
+                            <option value="burger" ${p.cat === 'burger' ? 'selected' : ''}>Burger</option>
+                            <option value="fastfood" ${p.cat === 'fastfood' ? 'selected' : ''}>Fast Food</option>
+                            <option value="kabob" ${p.cat === 'kabob' ? 'selected' : ''}>Kabob</option>
+                            <option value="salat" ${p.cat === 'salat' ? 'selected' : ''}>Salat</option>
+                            <option value="gazak" ${p.cat === 'gazak' ? 'selected' : ''}>Gazak</option>
+                            <option value="ichimlik" ${p.cat === 'ichimlik' ? 'selected' : ''}>Ichimlik</option>
+                            <option value="shirinlik" ${p.cat === 'shirinlik' ? 'selected' : ''}>Shirinlik</option>
+                        </select>
+                        <input type="number" value="${p.price}" id="price-${p.id}" placeholder="Narxi">
+                        <button class="save-btn" onclick="saveProduct('${p.id}')">Saqlash</button>
+                        <button class="delete-btn" onclick="deleteProduct('${p.id}')">O'chirish</button>
+                    </div>`;
+                });
+            }
+
+            function changeProductImage(productId) {
+                const url = prompt("Yangi rasm URL manzilini kiriting:");
+                if (url) {
+                    const product = products.find(p => p.id === productId);
+                    product.img = url;
+                    localStorage.setItem('products', JSON.stringify(products));
+                    displayProducts(currentCategory);
+                    if (document.getElementById('products').classList.contains('active')) {
+                        displayProductsForEdit();
+                    }
+                }
+            }
+
+            function saveProduct(productId) {
+                const product = products.find(p => p.id === productId);
+                const nameInput = document.getElementById(`name-${productId}`)?.value;
+
+                if (product.name && typeof product.name === 'object') {
+                    product.name.uz = nameInput || product.name.uz;
+                } else {
+                    product.name = nameInput || product.name;
+                }
+
+                product.weight = document.getElementById(`weight-${productId}`)?.value || product.weight;
+                product.cat = document.getElementById(`cat-${productId}`)?.value || product.cat;
+                product.price = parseInt(document.getElementById(`price-${productId}`)?.value) || product.price;
+
+                localStorage.setItem('products', JSON.stringify(products));
+                alert("✅ Mahsulot saqlandi!");
+                displayProducts(currentCategory);
+                displayProductsForEdit();
+            }
+
+            function deleteProduct(productId) {
+                if (confirm("Rostdan ham o'chirmoqchimisiz?")) {
+                    const idx = products.findIndex(p => p.id === productId);
+                    products.splice(idx, 1);
+                    localStorage.setItem('products', JSON.stringify(products));
+                    displayProducts(currentCategory);
+                    displayProductsForEdit();
+                    updateAdminStats();
+                }
+            }
+
+            function addNewProduct() {
+                const name = document.getElementById('newProductName')?.value.trim();
+                const cat = document.getElementById('newProductCat')?.value;
+                const price = parseInt(document.getElementById('newProductPrice')?.value);
+                const weight = document.getElementById('newProductWeight')?.value.trim();
+                const img = document.getElementById('newProductImage')?.value.trim() || "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400";
+
+                // MAJBURIY MAYDONLARNI TEKSHIRISH
+                if (!name) { alert("❌ Mahsulot nomini kiriting!"); return; }
+                if (!price || price <= 0) { alert("❌ To'g'ri narx kiriting!"); return; }
+                if (!weight) { alert("❌ Mahsulot miqdorini kiriting (masalan: 350g)!"); return; }
+                if (!cat) { alert("❌ Kategoriya tanlang!"); return; }
+
+                const newProduct = {
+                    id: 'new' + Date.now(),
+                    cat,
+                    name: { uz: name, ru: name, en: name },
+                    weight,
+                    price,
+                    img: img,
+                    quantity: 0
+                };
+
+                products.push(newProduct);
+                localStorage.setItem('products', JSON.stringify(products));
+                alert("✅ Yangi mahsulot qo'shildi!");
+
+                // Formani tozalash
+                document.getElementById('newProductName').value = '';
+                document.getElementById('newProductPrice').value = '';
+                document.getElementById('newProductWeight').value = '350g';
+                document.getElementById('newProductImage').value = 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400';
+                document.getElementById('newProductCat').value = 'milliy';
+
+                displayProducts(currentCategory);
+                updateAdminStats();
+                switchAdminTab('products', document.querySelectorAll('.admin-tab')[4]);
+                displayProductsForEdit();
+            }
+
+            function filterAdminProducts() {
+                const searchInput = document.getElementById('adminSearchInput');
+                adminSearchQuery = searchInput?.value.toLowerCase().trim() || '';
+                document.getElementById('adminClearSearch').style.display = adminSearchQuery.length > 0 ? 'block' : 'none';
+                document.getElementById('adminSearchStats').style.display = adminSearchQuery.length > 0 ? 'block' : 'none';
+                displayProductsForEdit();
+            }
+
+            function clearAdminSearch() {
+                document.getElementById('adminSearchInput').value = '';
+                adminSearchQuery = '';
+                document.getElementById('adminClearSearch').style.display = 'none';
+                document.getElementById('adminSearchStats').style.display = 'none';
+                displayProductsForEdit();
+            }
+
+            function goToProduct(productId) {
+                const element = document.getElementById(`card-${productId}`);
+                element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                element.style.transform = 'scale(1.02)';
+                element.style.borderColor = 'var(--primary)';
+                setTimeout(() => { element.style.transform = ''; }, 1000);
+            }
+
+            function changeAllProductImages() {
+                const newUrl = prompt("Yangi rasm URL manzilini kiriting (barcha mahsulotlar uchun):",
+                    "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400");
+
+                if (newUrl && newUrl.trim() !== "") {
+                    products.forEach(product => product.img = newUrl.trim());
+                    localStorage.setItem('products', JSON.stringify(products));
+                    displayProducts(currentCategory);
+                    if (document.getElementById('products').classList.contains('active')) {
+                        displayProductsForEdit();
+                    }
+                    alert(`✅ Barcha ${products.length} ta mahsulot rasmi admin panel orqali almashtirildi!`);
+                }
+            }
+
+            // Initialize
+            createProfileDropdown();
+            changeLang('uz');
+            updateSearchPlaceholder();
+            updateProfileDropdown();
+            updateCheckoutForm();
+            updateLoginRequiredMessage();
+            displayRooms();
+
+            // Manzilga "Namangan," qo'shish
+            const addressInput = document.getElementById('addressInput');
+            if (addressInput) {
+                addressInput.value = 'Namangan, ';
+
+                // Manzil o'zgartirilganda tekshirish
+                addressInput.addEventListener('input', function () {
+                    if (!this.value.startsWith('Namangan,')) {
+                        this.value = 'Namangan, ' + this.value.replace(/^Namangan,\s*/i, '');
+                    }
+                });
+            }
+
+            // Telefon inputiga formatlash qo'shish
+            const phoneInput = document.getElementById('phoneInput');
+            if (phoneInput) {
+                phoneInput.addEventListener('input', function () {
+                    formatPhoneNumber(this);
+                });
+            }
+
+            setInterval(updateMobileBadges, 5000);
+        </script>
+    </body>
+    
+    </html>
